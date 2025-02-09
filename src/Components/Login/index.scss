@@ -11,6 +11,14 @@
 
     align-items: center;
     justify-content: center;
+    gap:10rem;
+
+    img {
+        height: 500px;
+        width: 500px;
+        filter: drop-shadow(-30px 20px 0px rgba(0,0,0, 0.2));
+        transform: scaleX(-1);
+    }
 
 }
 
