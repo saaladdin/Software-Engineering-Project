@@ -38,7 +38,7 @@
         border-radius: 0.25rem;
         height: 2rem;
     }
-
+    
     button {
         background-color: #ff79df;
         padding: 0.6rem;
@@ -53,10 +53,7 @@
 .welcome-message {
     align-self: center;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
     p {
         color: #d3cd4b;
         text-align: center;
