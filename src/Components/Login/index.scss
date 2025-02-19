@@ -87,7 +87,7 @@
     gap: 5px; // adds space between remember me text and check box
 
     input[type="checkbox"] {
-        appearance: none; /* Ensures custom styling */
+        appearance: none;
         width: 16px;
         height: 16px;
         border: 2px solid #ffaf4f;
@@ -97,7 +97,7 @@
     }
 
     input[type="checkbox"]:checked {
-        background-color: #ffaf4f; /* Change background when checked */
+        background-color: #ffaf4f;
         border: none;
         display: flex;
         align-items: center;
@@ -105,7 +105,7 @@
     }
 
     input[type="checkbox"]:checked::after {
-        content: "✔"; /* Checkmark */
+        content: "✔";
         font-size: 12px;
         color: white;
         display: block;
@@ -118,7 +118,7 @@
     font-size: 12px;
 
     a {
-        text-decoration: none; /* Remove underline */
+        text-decoration: none; // remove link underline
         color: #ff79df;
     }
 }
