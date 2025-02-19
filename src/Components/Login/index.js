@@ -16,7 +16,17 @@ const Login = () => {
                 <input type="email" id="email" name="email"/>
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password"/>
+
+                <div className="forgot-password">
+                    <p><a href="/forgotpassword">Forgot Password?</a> </p>
+                </div>
+
                 <button className="submit" type="submit">Login</button>
+
+                <div className="signup-link">
+                    <p>Don't have an account? <a href="/signup">Sign up</a> </p>
+                </div>
+
             </form>
         </div>
     )
