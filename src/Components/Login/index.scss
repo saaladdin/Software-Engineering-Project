@@ -72,17 +72,58 @@
     }
 }
 
+.form-options {
+    display: flex;
+    justify-content: space-between; // pushes forgot password to right
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.remember-me {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px; // adds space between remember me text and check box
+
+    input[type="checkbox"] {
+        appearance: none; /* Ensures custom styling */
+        width: 16px;
+        height: 16px;
+        border: 2px solid #ffaf4f;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    input[type="checkbox"]:checked {
+        background-color: #ffaf4f; /* Change background when checked */
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: "✔"; /* Checkmark */
+        font-size: 12px;
+        color: white;
+        display: block;
+        text-align: center;
+        line-height: 16px;
+    }
+}
+
 .forgot-password {
-    text-align: right;
     font-size: 12px;
-    margin-top: 5px;
-    margin-bottom: 10px;
 
     a {
-        text-decoration: none;
+        text-decoration: none; /* Remove underline */
         color: #ff79df;
     }
 }
+
+
 
 .signup-link {
     text-align: center;

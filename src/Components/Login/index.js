@@ -16,10 +16,19 @@ const Login = () => {
                 <input type="email" id="email" name="email"/>
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password"/>
-
-                <div className="forgot-password">
-                    <p><a href="/forgotpassword">Forgot Password?</a> </p>
+                
+                <div className="form-options">
+                    <label className="remember-me">
+                        <input type="checkbox" id="remember" name="remember" />
+                        Remember me
+                    </label>
+                    <div className="forgot-password">
+                        <p><a href="/forgotpassword">Forgot Password?</a> </p>
+                    </div>
                 </div>
+
+
+
 
                 <button className="submit" type="submit">Login</button>
 
