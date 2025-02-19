@@ -4,12 +4,13 @@ import Header from "./Components/Header"
 import Footer from "./Components/Footer"
 import Landing from  "./Components/Landing"
 import Login from "./Components/Login"
+import SignUp from "./Components/Signup/SignUp";
 
 
 function App() {
 
   const location = useLocation();
-  const hideHeaderRoutes = ["/login"];
+  const hideHeaderRoutes = ["/login", "/signup"];
 
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
       <Routes>
           <Route index element={<Landing />}/>
           <Route path="/login" element={<Login />}/>
+          <Route path="/signup" element={<SignUp />} /> 
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>

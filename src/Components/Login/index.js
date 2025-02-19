@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import  "./index.scss"
 import Image from "../../Assets/Images/login-image.png"
 
 const Login = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="login">
             <img src={Image} alt="Image of two people watering a plant" />
@@ -27,15 +30,13 @@ const Login = () => {
                     </div>
                 </div>
 
-
-
-
                 <button className="submit" type="submit">Login</button>
 
                 <div className="signup-link">
-                    <p>Don't have an account? <a href="/signup">Sign up</a> </p>
+                    <p>Don't have an account?
+                        <span onClick={() => navigate("/signup")} className="signup-text"> Sign up</span>
+                    </p>
                 </div>
-
             </form>
         </div>
     )
