@@ -9,7 +9,7 @@ const Login = () => {
             <form className="login-form" action="">
                 <div className="welcome-message">
                     <p>Welcome to</p>
-                    <h1>Event Planner</h1>
+                    <h1>UVent</h1>
                 </div>
 
                 <label htmlFor="email">Email</label>
