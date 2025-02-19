@@ -5,6 +5,7 @@ import Footer from "./Components/Footer"
 import Landing from  "./Components/Landing"
 import Login from "./Components/Login"
 import SignUp from "./Components/Signup/SignUp";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 
 function App() {

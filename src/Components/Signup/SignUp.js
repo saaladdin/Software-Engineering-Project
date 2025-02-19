@@ -1,15 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 import Image from "../../Assets/Images/login-image.png"
 
 const SignUp = () => {
+    const navigate = useNavigate();
+
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        navigate("/dashboard"); // Redirect to Dashboard
+    };
+
     return (
         <div className="signup">
             <div className="signup-image">
                 <img src={Image} alt="Image of two people watering a plant" />
             </div>
 
-            <form className="signup-form">
+            <form className="signup-form" onSubmit={handleSignUp}>
                 <div className="welcome-message">
                     <p>Sign up for a</p>
                     <h1>UVent</h1>

@@ -6,10 +6,16 @@ import Image from "../../Assets/Images/login-image.png"
 const Login = () => {
     const navigate = useNavigate();
 
+    const handleLogin = (e) => {
+        e.preventDefault();
+        navigate("/dashboard"); // Redirect to Dashboard
+    };
+
+
     return (
         <div className="login">
             <img src={Image} alt="Image of two people watering a plant" />
-            <form className="login-form" action="">
+            <form className="login-form" onSubmit={handleLogin}>
                 <div className="welcome-message">
                     <p>Welcome to</p>
                     <h1>UVent</h1>
