@@ -1,22 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const Confirmation = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="dashboard">
-            <h1>Welcome to Your Dashboard!</h1>
+        <div className="confirmation">
+            <h1>Confirmation Page</h1>
+            <p>Your account has been created successfully!</p>
             <p>
                 <span 
                     onClick={() => navigate("/login")}
                     style={{ color: "#ff79df", cursor: "pointer", fontWeight: "bold" }}
                 >
-                    Logout
+                    Login
                 </span>
             </p>
         </div>
     );
 };
 
-export default Dashboard;
+export default Confirmation;

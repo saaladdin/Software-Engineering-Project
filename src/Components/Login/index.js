@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  "./index.scss"
 import Image from "../../Assets/Images/login-image.png"
@@ -6,9 +6,23 @@ import Image from "../../Assets/Images/login-image.png"
 const Login = () => {
     const navigate = useNavigate();
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
     const handleLogin = (e) => {
         e.preventDefault();
-        navigate("/dashboard"); // Redirect to Dashboard
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          if (user.email === email && user.password === password) {
+            navigate("/dashboard");
+        } else {
+          setError("Incorrect email or password");
+        }
+      } else {
+        setError("No account found. Please sign up first.");
+      }
     };
 
 
@@ -22,9 +36,22 @@ const Login = () => {
                 </div>
 
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email"/>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password"/>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 
                 <div className="form-options">
                     <label className="remember-me">
@@ -32,9 +59,11 @@ const Login = () => {
                         Remember me
                     </label>
                     <div className="forgot-password">
-                        <p><a href="/forgotpassword">Forgot Password?</a> </p>
+                        <p><a href="/forgotpassword">Forgot Password?</a></p>
                     </div>
                 </div>
+
+                {error && <p className="error">{error}</p>}
 
                 <button className="submit" type="submit">Login</button>
 
