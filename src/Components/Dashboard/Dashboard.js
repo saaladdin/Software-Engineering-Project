@@ -6,7 +6,7 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <h1>Welcome to Your Dashboard!</h1>
+            <h1 style={{color: '#FFA500', textAlign: 'center'}}>Welcome to UVENT!</h1>
             <p>
                 <span 
                     onClick={() => navigate("/login")}
