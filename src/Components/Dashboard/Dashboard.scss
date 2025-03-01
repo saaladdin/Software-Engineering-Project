@@ -1,0 +1,81 @@
+.dashboard {
+    padding: 20px;
+    text-align: center;
+}
+.dashboard .event-list {
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.upload-btn{
+    background-color: #ffaf4f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.browse-btn{
+    background-color: #ff79df;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.submit-btn{
+    background-color: #ffA74F;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.event-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.search-bar{
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ff79df;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.search-bar:focus{
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-image: linear-gradient(
+        135deg,
+        rgba(255, 247, 79, 1),
+        rgba(255, 175, 79, 1),
+        rgba(255, 121, 223, 1)
+    );
+    border-image-slice: 1;
+    animation: rainbow-focus 2s linear infinite;
+}
+
+.filter-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    background-color: #ffA74F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.filter-buttons button:hover{
+    background-color: #ff79df;
+}

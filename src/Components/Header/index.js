@@ -1,14 +1,33 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./index.scss"
 import messenger from "../../Assets/Images/noun-group-chat-5076902 1.png";
+import logo from "../../Assets/Images/logo.png";
 
 const Header = () => {
     const[profilePic, setProfilePic] = useState(null);
     const [userEmail, setUserEmail] =useState("");
     const [showChangeBox, setShowChangeBox] = useState(false);
+    const [isScrolledDown, setIsScrolledDown] = useState(false);
     const fileInputRef = useRef(null);
     const changeBoxRef = useRef(null);
 
+    useEffect(() => {
+        let lastScrollTop = 0;
+        const handleScroll = () => {
+            const currentScrollTop = window.scrollY;
+            if (currentScrollTop > lastScrollTop){
+                setIsScrolledDown(true);
+            } else {
+                setIsScrolledDown(false);
+            }
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        };
+    }, [])
+   
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser){
@@ -68,8 +87,9 @@ const Header = () => {
     const randomColor = generateRandomColor();
   
     return (
-      <header className="rainbow-header">
-        <h2 style={{ color: "#000000", textAlign: "left" }}>Uvent</h2>
+      <header className={`rainbow-header ${isScrolledDown ? "hide-header" : ""}`}>
+        <img src={logo} alt="Website Logo" className="logo"/>
+        <h3 style={{ color: "#000000", textAlign: "left" }}>UVent</h3>
         <div 
         className="profile-pic-container"
         onClick={handleProfilePicClick}

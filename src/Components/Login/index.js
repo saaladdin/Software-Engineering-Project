@@ -28,7 +28,7 @@ const Login = () => {
 
     return (
         <div className="login">
-            <img src={Image} alt="Image of two people watering a plant" />
+            <img src={Image} alt="Two people watering a plant" />
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="welcome-message">
                     <p>Welcome to</p>

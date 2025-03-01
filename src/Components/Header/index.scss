@@ -12,27 +12,39 @@ top: 0;
 left: 0;
 right: 0;
 width: 100%;
-height:50px;
-
+height:40px;
 display: flex;
-justify-content: space-between;
-align-items:center; /*vertically center the text */
+justify-content: flex-start;
+align-items: center; 
 padding-right: 10px;
+transition: opacity 0.3s ease, transform 0.3s ease;
+z-index: 1000;
+}
+.hide-header{
+    opacity: 0;
+    transform: translateY(-100%);
 }
 body {
     padding-top: 50px;
+}
+.logo{
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
 }
 .rainbow-header h2 {
     color:white;
     font-size: 48px;
     font-weight: bold;
     margin: 0;
+    padding-left: 50x;
 }
 .profile-pic-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: auto;
 }
 .profile-pic{
     width: 40px;
