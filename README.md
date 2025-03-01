@@ -7,7 +7,7 @@ By: Bowie, Sarah, Hamzah, and Kevin
 We used React as the front end and used react-router-dom to render
 our pages and components dynamically
 
-Our brander colors are #ff79df (pink), #ffaf4f (orange), #fff74f (yellow)
+Our brand colors are #ff79df (pink), #ffaf4f (orange), #fff74f (yellow)
 
 # Back-End
 
