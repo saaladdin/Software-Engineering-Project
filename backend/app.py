@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from config import app, db
-from models import User
+from models import *
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -23,10 +23,19 @@ def signup():
     db.session.commit()
 
     return jsonify({"message": "User registered successfully"}), 201
+@app.route("/get_users", methods=["GET"])
+def get_users():
+    users = User.query.all()  # Fetch all users
+    user_list = [user.to_json() for user in users]  # Convert each user to JSON format
+    
+    return jsonify(user_list), 200  # Return the list of users with a 200 status code
+
 
 
 if __name__ == "__main__":
     with app.app_context():
+        db.drop_all()
         db.create_all()
+        print("DB initialized")
 
     app.run(debug=True)

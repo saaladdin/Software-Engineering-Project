@@ -1,10 +1,10 @@
 import sqlite3
 
-conn = sqlite3.connect("your_database.db")
+conn = sqlite3.connect("mydatabase.db")
 cursor = conn.cursor()
 
 # Fetch all rows from a table
-cursor.execute("SELECT * FROM Users") 
+cursor.execute('SELECT * FROM User') 
 rows = cursor.fetchall()
 
 for row in rows:
