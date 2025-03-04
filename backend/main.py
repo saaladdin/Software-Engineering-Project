@@ -28,13 +28,22 @@ def create_reports():
 @app.route("/delete-report/<int:report_id>", methods=["DELETE"])
 def delete_report(report_id):
     report = Report.query.get(report_id)
+    
     if not report:
         return jsonify({"message": "Report not found!"}), 404
+
+    # Ensure only the report's owner can delete it
+    user_email = request.json.get("user_email")
+    user = User.query.filter_by(email=user_email).first()
+
+    if not user or report.user_id != user.user_id:
+        return jsonify({"message": "Unauthorized: You can only delete your own reports."}), 403
 
     db.session.delete(report)
     db.session.commit()
 
     return jsonify({"message": "Report deleted."}), 200
+
 
 if __name__ == "__main__":
     with app.app_context():
