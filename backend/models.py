@@ -9,7 +9,6 @@ class User(db.Model):
     password_hash = db.Column(db.String(256), nullable=False)
 
     org = db.relationship("Organization", backref="users")
-    reports = db.relationship('Report', backref='user', lazy='select', cascade='all,delete')
 
     def __init__(self, email, name):
         self.email = email
@@ -19,7 +18,6 @@ class User(db.Model):
         return {
             "user_id": self.user_id,
             "email": self.email,
-            "reports": [report.to_json() for report in self.reports]
         }
 
     def set_password(self, password):
