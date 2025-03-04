@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  "./index.scss"
 import Image from "../../Assets/Images/login-image.png"
+import axios from "axios";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -10,20 +11,47 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-          const user = JSON.parse(storedUser);
-          if (user.email === email && user.password === password) {
-            navigate("/dashboard");
+    const validateForm = () => {
+        let formErrors = {};
+
+        // Check if fields are empty
+        
+        if (!email.trim()) {
+          formErrors.email = "Email is required";
         } else {
-          setError("Incorrect email or password");
+          // Simple email format check
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            formErrors.email = "Please enter a valid email";
+          }
         }
-      } else {
-        setError("No account found. Please sign up first.");
-      }
+        if (!password.trim()) {
+          formErrors.password = "Password is required";
+        }
+
+        setError(formErrors);
+        return Object.keys(formErrors).length === 0;
     };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            try {
+                const response = await axios.post("http://127.0.0.1:5000/login", {
+                    email,
+                    password,
+                });
+
+            console.log(response.data);
+            navigate("/dashboard");
+        } catch (error) {
+            console.error(error.response?.data?.message || "Signup failed");
+            setError({
+              api: error.response?.data?.message || "Something went wrong!",
+            });
+          }
+        }
+      };
 
 
     return (
