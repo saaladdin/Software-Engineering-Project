@@ -26,7 +26,7 @@ def signup():
 
 @app.route("/login", methods=["POST"])
 def login():
-    data = request.json()
+    data = request.json
     name = data.get("username")
     email = data.get("email")
     password = data.get("password")
@@ -52,7 +52,7 @@ def get_users():
 
 @app.route("/profile", methods=["GET"])
 def profile():
-    if not session["user_name"]:
+    if not session.get("user_name"):
         return jsonify({"message": "Not logged in"}), 400
     
     return jsonify({"user": session["user_name"]}), 200
