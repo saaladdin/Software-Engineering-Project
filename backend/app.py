@@ -26,12 +26,11 @@ def signup():
 
 @app.route("/login", methods=["POST"])
 def login():
-    data = request.json
-    name = data.get("username")
+    data = request.json() 
     email = data.get("email")
     password = data.get("password")
 
-    if not name or not email or not password:
+    if not email or not password:
         return jsonify({"message": "Email and password are required"}), 400
     
     user = User.query.filter_by(email=email).first()
@@ -59,7 +58,6 @@ def profile():
 
 if __name__ == "__main__":
     with app.app_context():
-        db.drop_all()
         db.create_all()
         print("DB initialized")
 
