@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./index.scss"
 import messenger from "../../Assets/Images/noun-group-chat-5076902 1.png";
+import add_event from "../../Assets/Images/AddEvent.png";
 import logo from "../../Assets/Images/logo.png";
 
 const Header = () => {
@@ -129,6 +130,11 @@ const Header = () => {
           src={messenger}
           alt="messenger"
           className="text-bubble"
+        />
+        <img
+          src={add_event}
+          alt="add_event"
+          className="plus-sign"
         />
       </header>
     );
