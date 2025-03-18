@@ -7,6 +7,7 @@ import Login from "./Components/Login"
 import SignUp from "./Components/Signup/SignUp";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Confirmation from "./Components/Confirmation/Confirmation"; 
+import EventDetails from './Components/EventDetails/EventDetails';
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} /> 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/event-details" element={<EventDetails/>} />
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>

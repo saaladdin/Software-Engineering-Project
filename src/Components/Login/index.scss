@@ -55,7 +55,14 @@
         width: 100%;
         margin-top: 3rem;
         color: #333333;
+        cursor: pointer;
     }
+    button:hover{
+        background-color: #ff79df;
+        color: #333333;
+    }
+
+    
 }
 
 .welcome-message {
