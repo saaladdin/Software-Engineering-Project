@@ -1,108 +1,119 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  "./index.scss"
-import Image from "../../Assets/Images/login-image.png"
-import axios from "axios";
+import "./index.scss";
+import Image from "../../Assets/Images/login-image.png";
+import { auth } from "../FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Eye from "../../Assets/Images/eye-solid.png";
+import SlashEye from "../../Assets/Images/eye-slash-solid.png";
 
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [disable, setDisable] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
-    const validateForm = () => {
-        let formErrors = {};
+  const validateForm = () => {
+    let formErrors = {};
 
-        // Check if fields are empty
-        
-        if (!email.trim()) {
-          formErrors.email = "Email is required";
-        } else {
-          // Simple email format check
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            formErrors.email = "Please enter a valid email";
-          }
+    // Check if fields are empty
+
+    if (!email.trim()) {
+      formErrors.email = "Email is required";
+    } else {
+      // Simple email format check
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        formErrors.email = "Please enter a valid email";
+      }
+    }
+    if (!password.trim()) {
+      formErrors.password = "Password is required";
+    }
+
+    if (formErrors) {
+      setError(formErrors);
+    }
+
+    return Object.keys(formErrors).length === 0;
+  };
+
+  const handleLogin = async () => {
+    if (email !== "" && password !== "" && !error) {
+      try {
+        const user = await signInWithEmailAndPassword(auth, email, password);
+        if (user) {
+          navigate("/dashboard");
         }
-        if (!password.trim()) {
-          formErrors.password = "Password is required";
-        }
+      } catch (error) {
+        console.log(error);
+        alert(`Error: ${error}`);
+      }
+    }
+  };
 
-        setError(formErrors);
-        return Object.keys(formErrors).length === 0;
-    };
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-            try {
-                const response = await axios.post("http://127.0.0.1:5000/login", {
-                    email,
-                    password,
-                });
-
-            console.log(response.data);
-            navigate("/dashboard");
-        } catch (error) {
-            console.error(error.response?.data?.message || "Signup failed");
-            setError({
-              api: error.response?.data?.message || "Something went wrong!",
-            });
-          }
-        }
-      };
-
-
-    return (
-        <div className="login">
-            <img src={Image} alt="Two people watering a plant" />
-            <form className="login-form" onSubmit={handleLogin}>
-                <div className="welcome-message">
-                    <p>Welcome to</p>
-                    <h1>UVent</h1>
-                </div>
-
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                
-                <div className="form-options">
-                    <label className="remember-me">
-                        <input type="checkbox" id="remember" name="remember" />
-                        Remember me
-                    </label>
-                    <div className="forgot-password">
-                        <p><a href="/forgotpassword">Forgot Password?</a></p>
-                    </div>
-                </div>
-
-                {error && <p className="error">{error}</p>}
-
-                <button className="submit" type="submit">Login</button>
-
-                <div className="signup-link">
-                    <p>Don't have an account?
-                        <span onClick={() => navigate("/signup")} className="signup-text"> Sign up</span>
-                    </p>
-                </div>
-            </form>
+  return (
+    <div className="login">
+      <img src={Image} alt="Two people watering a plant" />
+      <div className="login-form" onSubmit={handleLogin}>
+        <div className="welcome-message">
+          <p>Welcome to</p>
+          <h1>UVent</h1>
         </div>
-    )
-}
+
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <label htmlFor="password">Password</label>
+        <div className="passwordInput">
+          <input
+            type={showPassword ? `text` : `password`}
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <img src={showPassword ? SlashEye : Eye} className="passwordIcon" onClick={() => setShowPassword(!showPassword)}/>
+        </div>
+        <div className="form-options">
+          <label className="remember-me">
+            <input type="checkbox" id="remember" name="remember" />
+            Remember me
+          </label>
+          <div className="forgot-password">
+            <p>
+              <a href="/forgotpassword">Forgot Password?</a>
+            </p>
+          </div>
+        </div>
+
+        {error && <p className="error">{error}</p>}
+
+        <button className="submit" onClick={handleLogin}>
+          Login
+        </button>
+
+        <div className="signup-link">
+          <p>
+            Don't have an account?
+            <span onClick={() => navigate("/signup")} className="signup-text">
+              {" "}
+              Sign up
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Login;
