@@ -8,15 +8,14 @@ const EventDetails = () => {
 
   return (
     <div className="event-details-page">
-      <h1>{title}</h1>
       <img src={image} alt={title} />
+      <div className="event-details-text">
+      <h1>{title}</h1>
       <p>{description}</p>
-      <p>
-        <strong>Date:</strong> {time}
+      <p><strong>Date:</strong> {time}</p>
+      <p><strong>Location:</strong> {location}
       </p>
-      <p>
-        <strong>Location:</strong> {location}
-      </p>
+    </div>
     </div>
   );
 };
