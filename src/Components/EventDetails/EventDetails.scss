@@ -1,12 +1,12 @@
 .event-details-page {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
 }
 
 .event-details-page h1 {
@@ -14,7 +14,7 @@
 }
 
 .event-details-page img{
-    max-width: 100%;
+    max-width: 40%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 20px;
