@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import Image from "../../Assets/Images/login-image.png";
-import { auth } from "../FirebaseConfig";
+import { auth } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Eye from "../../Assets/Images/eye-solid.png";
 import SlashEye from "../../Assets/Images/eye-slash-solid.png";
@@ -13,8 +13,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [disable, setDisable] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
 
   const validateForm = () => {
     let formErrors = {};
@@ -58,7 +59,7 @@ const Login = () => {
   return (
     <div className="login">
       <img src={Image} alt="Two people watering a plant" />
-      <div className="login-form" onSubmit={handleLogin}>
+      <div className="login-form">
         <div className="welcome-message">
           <p>Welcome to</p>
           <h1>UVent</h1>
@@ -82,7 +83,11 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <img src={showPassword ? SlashEye : Eye} className="passwordIcon" onClick={() => setShowPassword(!showPassword)}/>
+          <img
+            src={showPassword ? SlashEye : Eye}
+            className="passwordIcon"
+            onClick={() => setShowPassword(!showPassword)}
+          />
         </div>
         <div className="form-options">
           <label className="remember-me">
@@ -98,7 +103,11 @@ const Login = () => {
 
         {error && <p className="error">{error}</p>}
 
-        <button className="submit" onClick={handleLogin}>
+        <button
+          className={disable ? `submit disabled` : `submit`}
+          onClick={handleLogin}
+          disabled={disable}
+        >
           Login
         </button>
 
