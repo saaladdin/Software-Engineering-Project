@@ -148,6 +148,10 @@ const Dashboard = () => {
         );
     });
 
+    const handleEventClick = (event) => {
+      navigate("/event-details", { state: { event }})
+    };
+
     return (
       <div className="dashboard">
         <h1 style={{ color: "#FFA500", textAlign: "center" }}>
@@ -183,7 +187,13 @@ const Dashboard = () => {
 
         <div className="event-list">
           {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <div
+            key={event.id}
+            onClick={() => handleEventClick(event)}
+            className="event-card-container"
+            >
+            <EventCard event={event} />
+            </div>
           ))}
         </div>
       </div>

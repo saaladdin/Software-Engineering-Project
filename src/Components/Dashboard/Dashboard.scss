@@ -79,3 +79,18 @@
 .filter-buttons button:hover{
     background-color: #ff79df;
 }
+
+:root {
+    --shadow-color-1: rgba(255, 121, 223, 1);
+    --shadow-color-2: rgba(255, 247, 79, 1);
+    --shadow-color-3: rgba(255, 175, 79, 1);
+}
+.event-card-container {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05s);
+        box-shadow: 0px 4px 10px var(--shadow-color);
+    }
+}
