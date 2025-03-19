@@ -16,7 +16,6 @@ const Login = () => {
   const [disable, setDisable] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-
   const validateForm = () => {
     let formErrors = {};
 
@@ -51,7 +50,7 @@ const Login = () => {
         }
       } catch (error) {
         console.log(error);
-        alert(`Error: ${error}`);
+        alert("Invalid email or password!");
       }
     }
   };

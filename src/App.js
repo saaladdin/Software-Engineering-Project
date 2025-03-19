@@ -11,7 +11,7 @@ import { auth } from "./FirebaseConfig";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import EventDetails from './Components/EventDetails/EventDetails';
+import EventDetails from "./Components/EventDetails/EventDetails";
 
 function App() {
   const location = useLocation();
@@ -36,12 +36,12 @@ function App() {
     <div className="App">
       {!hideHeaderRoutes.includes(location.pathname) && <Header />}
       <Routes>
-          <Route index element={<Landing />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/signup" element={<SignUp />} /> 
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/confirmation" element={<Confirmation />} />
-          <Route path="/event-details" element={<EventDetails/>} />
+        <Route index element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/event-details" element={<EventDetails />} />
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>
