@@ -1,5 +1,6 @@
 import React from "react";
-import footerSvg from '../../Assets/Images/footer(1).svg'
+import footerSvg from '../../Assets/Images/footer(2).svg'
+import logo from '../../Assets/Images/logo.png'
 import "./index.scss"
 const Footer = () => {
   return(
@@ -14,6 +15,7 @@ const Footer = () => {
         </div>
         <p className="footer-bottom">@2025 UVent Inc.</p>
         </div>
+        <img className="footer-logo" src={logo} alt="Logo" />
         </footer>
         );
       };
