@@ -20,9 +20,7 @@ function App() {
   const navigate = useNavigate();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/dashboard"); // Redirect to home if logged in
-      } else {
+      if (!user) {
         if (location.pathname !== "/signup" && location.pathname !== "/") {
           navigate("/login");
         }
