@@ -21,16 +21,17 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/dashboard"); // Redirect to home if logged in
-      } else {
-        if (location.pathname !== "/signup" && location.pathname !== "/") {
-          navigate("/login");
+        if (location.pathname === "/signup" || location.pathname === "/login") {
+          navigate("/Dashboard");}
         }
+        else{
+          if (location.pathname !== "/signup" && location.pathname !== "/"){
+            navigate("/login")}
       }
     });
 
     return () => unsubscribe(); // Cleanup on unmount
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   return (
     <div className="App">

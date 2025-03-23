@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import EventCard from "../Events/EventCard";
 import "./Dashboard.scss";
-import { auth } from "../../FirebaseConfig"
+import { auth } from "../../FirebaseConfig";
 
 import eventImage1 from "../../Assets/Images/Group 11.png"
 import eventImage2 from "../../Assets/Images/Group 11.png"

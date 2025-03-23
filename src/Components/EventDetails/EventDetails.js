@@ -4,8 +4,8 @@ import "./EventDetails.scss";
 
 const EventDetails = () => {
   const { state } = useLocation();
-  const { title, time, location, image, description, organization } =
-    state.event;
+  
+  const { title, time, location, image, description, organization } = state.event;
 
   return (
     <div className="eventDetails">
