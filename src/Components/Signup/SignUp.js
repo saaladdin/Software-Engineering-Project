@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
 import "./SignUp.scss";
 import Image from "../../Assets/Images/login-image.png";
+import { auth } from "../../FirebaseConfig";
+import db from "../../FirebaseConfig"
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -46,21 +48,29 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      try {
-        const response = await axios.post("http://127.0.0.1:5000/signup", {
-          username,
-          email,
-          password,
-        });
 
-        console.log(response.data);
-        navigate("/confirmation");
-      } catch (error) {
-        console.error(error.response?.data?.message || "Signup failed");
-        setErrors({
-          api: error.response?.data?.message || "Something went wrong!",
-        });
+    if (!validateForm()) return;
+    if (email && password) {
+      try {
+        const userCredentials = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredentials.user;
+        
+        const userInfo = {
+          username: username,
+          email: email,
+          organizations: [],
+          roles: {},
+
+        }
+        const userRef = await setDoc(doc(db, "users", user.uid), userInfo)
+        console.log(`${userRef} added successfully`)
+
+      } catch (e) {
+        alert(`Signup error: ${e.message}`);
       }
     }
   };
