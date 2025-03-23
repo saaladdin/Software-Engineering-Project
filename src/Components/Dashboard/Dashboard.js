@@ -4,8 +4,8 @@ import EventCard from "../Events/EventCard";
 import "./Dashboard.scss";
 import { auth } from "../../FirebaseConfig"
 
-import eventImage1 from "../../Assets/Images/IceCreamEvent.png"
-import eventImage2 from "../../Assets/Images/MikuConcert.png"
+import eventImage1 from "../../Assets/Images/Group 11.png"
+import eventImage2 from "../../Assets/Images/Group 11.png"
 import eventImage3 from "../../Assets/Images/PetAPokemon.png";
 import eventImage4 from "../../Assets/Images/Poppin' with Boba.png";
 import eventImage5 from "../../Assets/Images/Host Club Meeting.png";
@@ -30,6 +30,7 @@ const Dashboard = () => {
             title: "Ice Cream Social",
             time: "Wednesday | March 5 | 12:45 pm",
             location: "Student Center Ballrooms",
+            organization: "Ice Cream Club",
             tags: ["free-food"],
             date: "2025-03-05",
             image: eventImage1,

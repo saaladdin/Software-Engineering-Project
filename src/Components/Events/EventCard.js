@@ -1,9 +1,8 @@
 import React from "react";
 import "./EventCard.scss";
-import groupIcon from "../../Assets/Images/group icon.png"
+import groupIcon from "../../Assets/Images/group icon.png";
 
-const EventCard = ({ event }) => {
-
+const EventCard = ({ event, context = "dashboard" }) => {
   const getRandomShadowColor = () => {
     const colors = [
       "rgba(255, 121, 223, 1)",
@@ -19,12 +18,12 @@ const EventCard = ({ event }) => {
 
   return (
     <div
-    className="event-card"
-    onMouseEnter={handleMouseEnter}
+      className="event-card"
+      onMouseEnter={handleMouseEnter}
     >
       <div className="event-image-container">
         <img src={event.image} alt={event.title} className="event-image" />
-        <img src={groupIcon} alt="group icon" className="group-icon"/>
+        <img src={groupIcon} alt="group icon" className="group-icon" />
       </div>
       <div className="event-details">
         <h3 className="event-title">{event.title}</h3>
@@ -33,7 +32,10 @@ const EventCard = ({ event }) => {
           <strong>Date:</strong> <span>{event.time}</span>
         </p>
         <p className="event-location">
-          <strong>location:</strong> <span>{event.location}</span>
+          <strong>Location:</strong> <span>{event.location}</span>
+        </p>
+        <p className="event-organization">
+          <strong>Organization:</strong> <span>{event.organization}</span>
         </p>
       </div>
     </div>
