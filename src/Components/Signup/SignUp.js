@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./SignUp.scss";
 import Image from "../../Assets/Images/login-image.png";
 import { auth } from "../../FirebaseConfig";
+import db from "../../FirebaseConfig"
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (!validateForm()) return;
-    if ((email, password)) {
+    if (email && password) {
       try {
         const userCredentials = await createUserWithEmailAndPassword(
           auth,
@@ -56,8 +58,19 @@ const SignUp = () => {
           password
         );
         const user = userCredentials.user;
+        
+        const userInfo = {
+          username: username,
+          email: email,
+          organizations: [],
+          roles: {},
+
+        }
+        const userRef = await setDoc(doc(db, "users", user.uid), userInfo)
+        console.log(`${userRef} added successfully`)
+
       } catch (e) {
-        alert("Signup error:", e);
+        alert(`Signup error: ${e.message}`);
       }
     }
   };
