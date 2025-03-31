@@ -96,6 +96,10 @@ const Header = () => {
     const handleTitleClick = () => {
         navigate ("/dashboard");
     };
+
+    const handleAddEventClick = () => {
+        navigate ("/addevent");
+    };
   
     return (
       <header className={`rainbow-header ${isScrolledDown ? "hide-header" : ""}`}>
@@ -150,6 +154,8 @@ const Header = () => {
           src={add_event}
           alt="add_event"
           className="plus-sign"
+          onClick={handleAddEventClick}
+          style={{ cursor: "pointer" }}
         />
       </header>
     );
