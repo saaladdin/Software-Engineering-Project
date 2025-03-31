@@ -21,6 +21,14 @@ const Dashboard = () => {
     const [events, setEvents] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedFilter, setSelectedFilter] = useState("");
+    const [startTime, setStartTime] = useState("08:00");
+    const [endTime, setEndTime] = useState("23:00");
+
+    const formatTime = (hour) => {
+      const isPM = hour >= 12;
+      const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+      return `${formattedHour} ${isPM ? 'PM' : 'AM'}`;
+    };
 
 
     useEffect(() => {
@@ -33,6 +41,8 @@ const Dashboard = () => {
             organization: "Ice Cream Club",
             tags: ["free-food"],
             date: "2025-03-05",
+            startTime: "12:45",
+            endTime: "14:00",
             image: eventImage1,
           },
           {
@@ -122,6 +132,22 @@ const Dashboard = () => {
     
     const today = new Date().toISOString().split("T")[0];
 
+    const filterByTimeRange =(event) => {
+      if(!event.startTime || !event.endTime){
+        return true;
+      }
+      const [startHour, startMinute] = startTime.split(":");
+      const [endHour, endMinute] = endTime.split(":");
+      const [eventStartHour, eventStartMinute] = event.startTime.split(":");
+      const [eventEndHour, eventEndMinute] = event.endTime.split(":");
+
+      const selectedStart = parseInt(startHour) * 60 + parseInt(startMinute);
+      const selectedEnd = parseInt(endHour) * 60 + parseInt(endMinute);
+      const eventStart = parseInt(eventStartHour) * 60 + parseInt(eventStartMinute);
+      const eventEnd = parseInt(eventEndHour) * 60 + parseInt(eventEndMinute);
+      return eventStart >= selectedStart && eventEnd <= selectedEnd;
+    };
+
     const filteredEvents = events.filter((event) => {
             if (
               selectedFilter === "free-food" && !event.tags.includes("free-food")) {
@@ -147,7 +173,8 @@ const Dashboard = () => {
             event.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
             event.location.toLowerCase().includes(searchQuery.toLowerCase())
         );
-    });
+    })
+    .filter((event) => filterByTimeRange(event));
 
     const handleEventClick = (event) => {
       navigate("/event-details", { state: { event }})
@@ -178,6 +205,35 @@ const Dashboard = () => {
           <button onClick={() => setSelectedFilter("upcoming")}>View Upcoming Events</button>
         </div>
 
+        <div className="time-filter">
+          <label>
+            Start Time:
+            <select value={startTime} onChange={(e) => setStartTime(e.target.value)}>
+              {Array.from({length:16}, (_, index) => {
+                const hour = 8 + index;
+                return(
+                <option key={hour} value={`${String(hour).padStart(2, "0")}:00`}>
+                  {formatTime(hour)}
+                </option>
+                );
+              })}
+            </select>
+          </label>
+
+          <label>
+            End Time:
+            <select value={endTime} onChange={(e) => setEndTime(e.target.value)}>
+              {Array.from({length:16}, (_, index) => {
+                const hour = 8 + index;
+                return(
+                <option key={hour} value={`${String(hour).padStart(2, "0")}:00`}>
+                  {formatTime(hour)}
+                </option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
         <input
           type="text"
           placeholder="Search for events"

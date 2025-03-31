@@ -94,3 +94,35 @@
         box-shadow: 0px 4px 10px var(--shadow-color);
     }
 }
+.time-filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    gap: 140px;
+}
+.time-filter label{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ff79df;
+}
+.time-filter select{
+    padding: 10px 15px;
+    background-color: #ffA74F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.01s, box-shadow 0.01s ease;
+    appearance: none;
+}
+.time-filter select:hover{
+    background-color: #ff79df;
+}
+.time-filter select:focus{
+    background-color: #ffA74F;
+    box-shadow: 0 0 5px var(--shadow-color-1);
+    outline: none;
+    border-color: #ff79df;
+}
