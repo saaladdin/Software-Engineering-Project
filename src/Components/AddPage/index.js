@@ -1,13 +1,13 @@
 
 
-const AddPage = () => {
+const AddEvent = () => {
     return (
         <>
-        <div className="addPage">
+        <div className="addEvent">
             
         </div>
         </>
     )
 }
 
-export default AddPage;
+export default AddEvent;

@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import EventDetails from "./Components/EventDetails/EventDetails";
-import AddPage from "./Components/AddPage";
+import AddEvent from "./Components/AddPage";
 function App() {
   const location = useLocation();
   const hideHeaderRoutes = ["/login", "/signup"];
@@ -43,7 +43,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/event-details" element={<EventDetails />} />
-        <Route path="/addPage" element={<AddPage />} />
+        <Route path="/addEvent" element={<AddEvent />} />
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>
