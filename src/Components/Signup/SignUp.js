@@ -6,6 +6,7 @@ import { auth } from "../../FirebaseConfig";
 import db from "../../FirebaseConfig"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import logo from "../../Assets/Images/logo.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -78,10 +79,11 @@ const SignUp = () => {
   return (
     <div className="signup">
       <div className="signup-image">
-        <img src={Image} alt="Two people watering a plant" />
+        <img src={Image} alt="Two people watering a plant" className="image" />
       </div>
 
       <form className="signup-form" onSubmit={handleSignUp}>
+        <img src={logo} alt="Website Logo" className="logo"/>
         <div className="welcome-message">
           <p>Sign up for a</p>
           <h1>UVent</h1>

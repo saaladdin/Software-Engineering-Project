@@ -6,6 +6,8 @@ import { auth } from "../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Eye from "../../Assets/Images/eye-solid.png";
 import SlashEye from "../../Assets/Images/eye-slash-solid.png";
+import logo from "../../Assets/Images/logo.png";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -57,8 +59,9 @@ const Login = () => {
 
   return (
     <div className="login">
-      <img src={Image} alt="Two people watering a plant" />
+      <img src={Image} alt="Two people watering a plant" className="image" />
       <div className="login-form">
+        <img src={logo} alt="Website Logo" className="logo"/>
         <div className="welcome-message">
           <p>Welcome to</p>
           <h1>UVent</h1>

@@ -1,4 +1,10 @@
 .login {
+  .logo{
+    width: auto;
+    height: auto;
+    position: relative;
+    left: 75px;
+  }
   .passwordIcon {
     all: unset;
     width: 1.5rem;
@@ -32,7 +38,7 @@
   justify-content: center;
   gap: 10rem;
 
-  img {
+  .image {
     height: 500px;
     width: 500px;
     filter: drop-shadow(-30px 20px 0px rgba(0, 0, 0, 0.2));
