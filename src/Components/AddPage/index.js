@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./index.scss";
+import { useNavigate } from "react-router-dom";
 
 const AddEvent = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -12,7 +14,13 @@ const AddEvent = () => {
     tags: "",
     description: "",
     image: null,
-  });
+  }
+);
+
+const handleCreateEvent = () => {
+  // Your event creation logic here
+  navigate("/dashboard");
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -151,6 +159,7 @@ const AddEvent = () => {
         <button 
           type="submit" 
           className="button"
+          onClick={handleCreateEvent}
         >
           Create Event
         </button>
