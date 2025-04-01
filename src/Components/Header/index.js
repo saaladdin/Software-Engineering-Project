@@ -1,29 +1,18 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./index.scss"
+import { useNavigate } from "react-router-dom";
 import messenger from "../../Assets/Images/noun-group-chat-5076902 1.png";
 import add_event from "../../Assets/Images/AddEvent.png";
 import logo from "../../Assets/Images/logo.png";
-import { onAuthStateChanged } from "firebase/auth";
-import {auth} from "../../FirebaseConfig";
 
 const Header = () => {
-  const [profilePic, setProfilePic] = useState(null);
-  const [userEmail, setUserEmail] = useState("");
-  const [showChangeBox, setShowChangeBox] = useState(false);
-  const [isScrolledDown, setIsScrolledDown] = useState(false);
-  const fileInputRef = useRef(null);
-  const changeBoxRef = useRef(null);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user){
-                setUserEmail(user.email);
-            } else {
-                setUserEmail("");
-            }
-        });
-        return () => unsubscribe();
-    }, []);
+    const navigate = useNavigate();
+    const[profilePic, setProfilePic] = useState(null);
+    const [userEmail, setUserEmail] =useState("");
+    const [showChangeBox, setShowChangeBox] = useState(false);
+    const [isScrolledDown, setIsScrolledDown] = useState(false);
+    const fileInputRef = useRef(null);
+    const changeBoxRef = useRef(null);
 
     useEffect(() => {
         let lastScrollTop = 0;
@@ -43,6 +32,13 @@ const Header = () => {
     }, [])
    
     useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser){
+            const user = JSON.parse(storedUser);
+            setUserEmail(user.email);
+        }
+    }, []);
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (changeBoxRef.current && !changeBoxRef.current.contains(event.target)){
                 setShowChangeBox(false)
@@ -53,28 +49,6 @@ const Header = () => {
             document.removeEventListener("mousedown", handleClickOutside)
         };
     },[]);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setUserEmail(user.email);
-    }
-  }, []);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        changeBoxRef.current &&
-        !changeBoxRef.current.contains(event.target)
-      ) {
-        setShowChangeBox(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
     const handleProfilePicChange = (event) => {
         const file = event.target.files[0];
@@ -114,11 +88,28 @@ const Header = () => {
     }
     const defaultProfilePic = getFirstLetter(userEmail);
     const randomColor = generateRandomColor();
+
+    const handleLogoClick = () => {
+        navigate("/dashboard");
+    };
+
+    const handleTitleClick = () => {
+        navigate ("/dashboard");
+    };
+
+    const handleAddEventClick = () => {
+        navigate ("/addevent");
+    };
   
     return (
       <header className={`rainbow-header ${isScrolledDown ? "hide-header" : ""}`}>
-        <img src={logo} alt="Website Logo" className="logo"/>
-        <h3 style={{ color: "#000000", textAlign: "left" }}>UVent</h3>
+        <img src={logo} alt="Website Logo" className="logo" onClick={handleLogoClick} style={{ cursor: "pointer" }}/> 
+        <h3 
+              style={{ color: "#000000", textAlign: "left", cursor: "pointer" }} 
+              onClick={handleTitleClick}
+              >
+                UVent
+        </h3>
         <div 
         className="profile-pic-container"
         onClick={handleProfilePicClick}
@@ -163,6 +154,8 @@ const Header = () => {
           src={add_event}
           alt="add_event"
           className="plus-sign"
+          onClick={handleAddEventClick}
+          style={{ cursor: "pointer" }}
         />
       </header>
     );

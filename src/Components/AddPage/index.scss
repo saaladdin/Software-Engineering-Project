@@ -1,0 +1,106 @@
+.addevent{
+    padding: 70px;
+    display: flex;
+    width: 80%;
+}
+.addevent_form{
+    flex: 1;
+}
+.preview{
+    flex:1
+}
+
+.title{
+    display: flex;
+}
+.insert_title{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.organization{
+    display: flex;
+}
+.insert_organization{
+    margin-left: auto;
+    width: 308px;
+    margin-bottom: 16px;
+}
+
+.available{
+    display: flex;
+}
+.max_people{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.time_date{
+    display: flex;
+}
+.date{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+.time{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.location{
+    display: flex;
+}
+.insert_location{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.tags{
+    display: flex;
+}
+.insert_tags{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.description{
+    display: flex;
+}
+.insert_description{
+    margin-left: auto;
+    width: 300px;
+    margin-bottom: 16px;
+}
+
+.previewimage{
+    display: flex;
+    width: 300px;
+    height: auto;
+}
+.submit_image{
+    margin-bottom: 16px
+}
+
+.button{
+    display: flex;
+    background-color: #ff79df;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 450;
+    margin-top: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover{
+    background-color: #ffaf4f;
+    transform: scale(1.05);
+}

@@ -25,6 +25,7 @@ import eventImage8 from "../src/Assets/Images/EvanEvent.webp";
 import eventImage9 from "../src/Assets/Images/Egoist.webp";
 import eventImage10 from "../src/Assets/Images/BadMath.webp";
 
+import Chat from "./Components/Chat";
 function App() {
   const location = useLocation();
   const hideHeaderRoutes = ["/login", "/signup"];
@@ -159,6 +160,7 @@ function App() {
         <Route path="/event-details" element={<EventDetails />} />
         <Route path="/addEvent" element={<AddEvent />} />
         <Route path="/create-event" element={<CreateEvent addEvent={addEvent}/>} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>
