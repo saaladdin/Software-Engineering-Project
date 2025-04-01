@@ -100,6 +100,10 @@ const Header = () => {
     const handleAddEventClick = () => {
         navigate ("/addevent");
     };
+
+    const handleChatClick = () => {
+        navigate ("/Chat")
+    }
   
     return (
       <header className={`rainbow-header ${isScrolledDown ? "hide-header" : ""}`}>
@@ -149,6 +153,8 @@ const Header = () => {
           src={messenger}
           alt="messenger"
           className="text-bubble"
+          onClick={handleChatClick}
+          style={{ cursor: "pointer" }}
         />
         <img
           src={add_event}
