@@ -27,7 +27,6 @@ const EventCard = ({ event, context = "dashboard" }) => {
       </div>
       <div className="event-details">
         <h3 className="event-title">{event.title}</h3>
-        <p className="event-description">{event.description}</p>
         <p className="event-time">
           <strong>Date:</strong> <span>{event.time}</span>
         </p>
