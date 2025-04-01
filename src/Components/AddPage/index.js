@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./index.scss";
 
 const AddEvent = () => {
   const [formData, setFormData] = useState({
@@ -29,114 +30,127 @@ const AddEvent = () => {
 
   return (
     <div className="addevent">
-      <h2 className="text-2xl font-bold mb-4">Create Event</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <h2 className="pagename">Create Event</h2>
+      <form onSubmit={handleSubmit} className="form">
         
         {/* Title */}
         <div>
-          <label className="title">Title</label>
+          <label className="title">Title:</label>
           <input 
-            type="text" 
-            name="title" 
+            type="text"
+            name="title"
             value={formData.title} 
             onChange={handleChange} 
-            className="w-full border p-2"
+            className="insert_title"
           />
         </div>
 
         {/* Organization */}
         <div>
-          <label className="block font-semibold">Organization:</label>
-          <input 
-            type="text" 
-            name="organization" 
-            value={formData.organization} 
-            onChange={handleChange} 
-            className="w-full border p-2"
-          />
+          <label className="organization">Organization:</label>
+          <select
+            name="organization"
+            value={formData.organization}
+            onChange={handleChange}
+            className="insert_organization"
+          >
+            <option value="">Select an Organization</option>
+            <option value="org1">One Piece Club</option>
+            <option value="org2">Colorful Stage</option>
+            <option value="org3">Pokemon League</option>
+            <option value="org4">Food Club</option>
+            <option value="org5">Host Club</option>
+            <option value="org6">Charity Club</option>
+            <option value="org7">Astronomy Club</option>
+            <option value="org8">Robotics Club</option>
+            <option value="org9">Soccer Club</option>
+            <option value="org10">Math Club</option>
+
+            {/* Add more options as needed */}
+          </select>
         </div>
 
         {/* Availability */}
         <div>
-          <label className="block font-semibold">Availability:</label>
+          <label className="available">Availability:</label>
           <input 
             type="number" 
-            name="availability" 
+            name="availability"
             value={formData.availability} 
             onChange={handleChange} 
-            className="w-full border p-2"
+            className="max_people"
             placeholder="Max people"
           />
         </div>
 
         {/* Date & Time */}
         <div>
-          <label className="block font-semibold">Date:</label>
+          <label className="time_date">Date:</label>
           <input 
             type="date" 
-            name="date" 
+            name="date"
             value={formData.date} 
             onChange={handleChange} 
-            className="w-full border p-2"
+            className="date"
           />
         </div>
+
         <div>
           <input 
             type="time" 
-            name="time" 
+            name="time"
             value={formData.time} 
             onChange={handleChange} 
-            className="w-full border p-2"
+            className="time"
           />
         </div>
 
         {/* Location */}
         <div>
-          <label className="block font-semibold">Location:</label>
+          <label className="location">Location:</label>
           <input 
             type="text" 
-            name="location" 
+            name="location"
             value={formData.location} 
             onChange={handleChange} 
-            className="w-full border p-2"
-            placeholder="Address"
+            className="insert_location"
           />
         </div>
 
         {/* Tags */}
         <div>
-          <label className="block font-semibold">Tags:</label>
+          <label className="tags">Tags:</label>
           <input 
             type="text" 
-            name="tags" 
+            name="tag"
             value={formData.tags} 
             onChange={handleChange} 
-            className="w-full border p-2"
+            className="insert_tags"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block font-semibold">Description:</label>
+          <label className="description">Description:</label>
           <textarea 
-            name="description" 
+            name="description"
             value={formData.description} 
             onChange={handleChange} 
-            className="w-full border p-2 h-24"
+            className="insert_description"
             placeholder="Description"
           />
         </div>
 
         {/* Image Upload */}
         <div>
-          <label className="block font-semibold">Image</label>
-          <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full p-2 border" />
+          <label className="image">Image</label>
+          <input type="file" accept="image/*" onChange={handleImageUpload} className="img" />
         </div>
 
         {/* Submit Button */}
         <button 
           type="submit" 
-          className="w-full bg-blue-500 text-white p-2 rounded mt-4"
+          className="button"
         >
           Create Event
         </button>
