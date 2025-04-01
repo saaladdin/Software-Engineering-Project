@@ -126,9 +126,7 @@ const Header = () => {
         </h3>
       </div>
       <div className="headerRight">
-        <a href="/profile">
-            Profile
-        </a>
+        <a href="/profile">Profile</a>
         <div
           className="profile-pic-container"
           onClick={handleProfilePicClick}
