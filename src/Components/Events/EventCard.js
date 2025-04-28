@@ -1,6 +1,5 @@
 import React from "react";
 import "./EventCard.scss";
-import groupIcon from "../../Assets/Images/group icon.png";
 
 const EventCard = ({ event, context = "dashboard" }) => {
   const getRandomShadowColor = () => {
@@ -23,7 +22,7 @@ const EventCard = ({ event, context = "dashboard" }) => {
     >
       <div className="event-image-container">
         <img src={event.image} alt={event.title} className="event-image" />
-        <img src={groupIcon} alt="group icon" className="group-icon" />
+        <img src={event.groupIcon} alt="group icon" className="group-icon" />
       </div>
       <div className="event-details">
         <h3 className="event-title">{event.title}</h3>
