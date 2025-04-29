@@ -13,27 +13,27 @@ const EventDetails = () => {
   };
 
   return (
-    <div className="eventDetails">
-      <div className="eventMainSection">
-        <div className="eventImageContainer">
-          <img src={image} alt={title} className="eventImage" />
+    <div className="event-details-page">
+      <div className="event-main-section">
+        <div className="event-image-container-details">
+          <img src={image} alt={title} className="event-image-details" />
         </div>
 
-        <div className="eventDetailsContent">
-          <h1 className="eventTitle">{title}</h1>
-          <p className="eventInfo">
+        <div className="event-details-content">
+          <h1 className="event-title-details">{title}</h1>
+          <p className="event-info-details">
             <strong>Date:</strong> {time} <br />
-            <strong>Location:</strong> {location}
-            <br />
+            <strong>Location:</strong> {location} <br />
             <strong>Organization:</strong> {organization}
           </p>
-          <button className="registerButton">Register for this event</button>
+
+          <button className="register-button">Register for this event</button>
 
           {tags && tags.length > 0 && (
-            <div className="eventTags">
-              <p className="tagsLabel">Tags:</p>
+            <div className="event-tags">
+              <p className="tags-label">Tags:</p>
               {tags.map((tag, index) => (
-                <span key={index} className="eventTag">
+                <span key={index} className="event-tag">
                   {tagDisplayMap[tag] || tag}
                 </span>
               ))}
@@ -43,7 +43,7 @@ const EventDetails = () => {
       </div>
 
       {description && (
-        <div className="descriptionBox">
+        <div className="description-box">
           <ul>
             {description
               .split("\n")
