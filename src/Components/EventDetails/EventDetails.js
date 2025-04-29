@@ -16,6 +16,8 @@ const EventDetails = () => {
       navigate("/confirmation-page", { state: { event: state.event } }); 
   };
 
+  
+
   return (
     <div className="eventDetails">
       <div className="eventMainSection">
