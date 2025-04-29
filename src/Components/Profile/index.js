@@ -5,7 +5,7 @@ import "./index.scss";
 import db, { auth } from "../../FirebaseConfig"; // assuming you're using Firebase
 import { signOut } from "firebase/auth";
 import EventCard from "../Events/EventCard";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -32,16 +32,38 @@ const ProfilePage = () => {
   };
 
   const getRegisteredEvents = async (userId) => {
-
     try {
       const registrationsRef = collection(db, "users", userId, "registrations");
       const querySnapshot = await getDocs(registrationsRef);
-      const registeredEvents = querySnapshot.docs.map((doc) => doc.data());
+
+      const registeredEvents = querySnapshot.docs.map((doc) => ({
+        id: doc.id, 
+        ...doc.data(),
+      }));
 
       return registeredEvents;
     } catch (error) {
       console.error("Error fetching registered events:", error);
       return [];
+    }
+  };
+
+
+  const removeRegisteredEvent = async (eventId) => {
+    const userId = auth.currentUser?.uid;
+    if (!userId) return;
+
+    try {
+      const eventRef = doc(db, "users", userId, "registrations", eventId);
+      await deleteDoc(eventRef);
+
+      setRegisteredEvents((prev) =>
+        prev.filter((event) => event.id !== eventId)
+      );
+
+      console.log("Event removed from registrations.");
+    } catch (error) {
+      console.error("Error removing event:", error);
     }
   };
 
@@ -149,15 +171,22 @@ const ProfilePage = () => {
           Change Password
         </button>
 
-          <h1>Registered Events</h1>
+        <h1>Registered Events</h1>
         <div className="event-cards">
           {registeredEvents.map((event) => (
-            <div
-              className="event-card"
-              key={event.id}
-              onClick={() => handleEventClick(event)}
-            >
-              <EventCard event={event} />
+            <div className="event-card" key={event.id}>
+              <button
+                className="remove-button"
+                onClick={() => removeRegisteredEvent(event.title)}
+                aria-label="Remove event"
+              >
+                &times;
+              </button>
+
+              <EventCard
+                event={event}
+                onClick={() => handleEventClick(event)}
+              />
             </div>
           ))}
         </div>
