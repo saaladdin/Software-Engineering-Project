@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateEvent.scss";
 
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { app, storage } from "../../FirebaseConfig"; // or wherever you initialized Firebase
+
+
+
 const CreateEvent = ({ addEvent }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -21,36 +27,73 @@ const CreateEvent = ({ addEvent }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file){
-        setFormData((prevData) => ({
-            ...prevData,
-            image: URL.createObjectURL(file),
-        }));
+    if (file) {
+      const imageRef = ref(storage, `eventImages/${Date.now()}-${file.name}`);
+      await uploadBytes(imageRef, file);
+      const downloadURL = await getDownloadURL(imageRef);
+      setFormData((prevData) => ({
+        ...prevData,
+        image: downloadURL,
+      }));
     }
   };
-const handleGroupIconChange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    setFormData((prevData) => ({
-      ...prevData,
-      groupIcon: URL.createObjectURL(file),
-    }));
-  }
-};
 
+  // Group icon upload handler
+  const handleGroupIconChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const iconRef = ref(storage, `groupIcons/${Date.now()}-${file.name}`);
+      await uploadBytes(iconRef, file);
+      const downloadURL = await getDownloadURL(iconRef);
+      setFormData((prevData) => ({
+        ...prevData,
+        groupIcon: downloadURL,
+      }));
+    }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newEvent = {
-      ...formData,
-      id: Date.now(),
-      date: new Date().toISOString().split("T")[0],
-      tags: formData.tags.split(",").map((tag) => tag.trim()),
-    };
-    addEvent(newEvent);
-    navigate("/dashboard");
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+
+    let imageUrl = "";
+    let groupIconUrl = "";
+
+    try {
+      // Upload image if exists
+      if (formData.image) {
+        const imageRef = ref(storage, `events/${Date.now()}_image`);
+        await uploadBytes(imageRef, formData.image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      // Upload group icon if exists
+      if (formData.groupIcon) {
+        const iconRef = ref(storage, `events/${Date.now()}_icon`);
+        await uploadBytes(iconRef, formData.groupIcon);
+        groupIconUrl = await getDownloadURL(iconRef);
+      }
+
+      // Create event object
+      const newEvent = {
+        ...formData,
+        id: Date.now(),
+        date: new Date().toISOString().split("T")[0],
+        tags: formData.tags.split(",").map((tag) => tag.trim()),
+        image: imageUrl,
+        groupIcon: groupIconUrl,
+      };
+
+      // Store to Firestore or pass to parent
+      await addDoc(collection(db, "events"), newEvent);
+      addEvent(newEvent);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Error uploading files:", err);
+    }
   };
 
   return (
