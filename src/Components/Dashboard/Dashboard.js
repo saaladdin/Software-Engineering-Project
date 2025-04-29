@@ -72,12 +72,6 @@ const Dashboard = ({ events }) => {
         <h1 style={{ color: "#FFA500", textAlign: "center" }}>
           Welcome to UVent!
         </h1>
-        <button onClick={() => navigate("/create-event")} className="create-event-btn">
-          Create Event
-        </button>
-        <button onClick={() => navigate("/edit-event")} className="edit-event-btn">
-          Edit Event
-        </button>
         <p>
           <span
             onClick={() => {
