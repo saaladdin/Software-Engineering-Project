@@ -1,5 +1,5 @@
 .dashboard {
-    padding: 20px;
+    padding: 80px;
     text-align: center;
 }
 .dashboard .event-list {
@@ -126,3 +126,28 @@
     outline: none;
     border-color: #ff79df;
 }
+.create-event-btn,
+.edit-event-btn {
+  background-color: #ffaf4f; // Orange color for both buttons
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  margin: 10px;
+
+  &:hover {
+    background-color: #e69e40; // Slightly darker orange on hover
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+

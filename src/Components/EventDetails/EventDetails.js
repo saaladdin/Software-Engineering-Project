@@ -2,8 +2,8 @@ import { setDoc } from "firebase/firestore";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./EventDetails.scss";
-import db, {auth} from "../../FirebaseConfig"
-import {doc} from "firebase/firestore"
+import db, { auth } from "../../FirebaseConfig";
+import { doc } from "firebase/firestore";
 
 const EventDetails = () => {
   const { state } = useLocation();
@@ -58,7 +58,9 @@ const EventDetails = () => {
             <strong>Organization:</strong> {organization}
           </p>
 
-          <button className="register-button" onClick={handleRegister} >Register for this event</button>
+          <button className="register-button" onClick={handleRegister}>
+            Register for this event
+          </button>
 
           {tags && tags.length > 0 && (
             <div className="event-tags">

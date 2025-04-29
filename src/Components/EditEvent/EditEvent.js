@@ -1,67 +1,81 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./CreateEvent.scss";
-
-const CreateEvent = ({ addEvent }) => {
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import '../CreateEvent/CreateEvent.scss';
+const EditEvent = ({ events, updateEvent }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  const eventToEdit = events.find((event) => event.id === parseInt(id));
   const [formData, setFormData] = useState({
     title: "",
-    time: "",
     location: "",
-    image: "",
-    groupIcon: "",
-    description: "",
     organization: "",
+    description: "",
     startTime: "",
     endTime: "",
     tags: [],
+    image: "",
+    groupIcon: "",
   });
+
+  useEffect(() => {
+    if (eventToEdit) {
+      setFormData({
+        ...eventToEdit,
+        tags: Array.isArray(eventToEdit.tags)
+          ? eventToEdit.tags
+          : [eventToEdit.tags],
+      });
+    }
+  }, [eventToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file){
-        setFormData((prevData) => ({
-            ...prevData,
-            image: URL.createObjectURL(file),
-        }));
+    if (name === "tags") {
+      setFormData((prev) => ({ ...prev, tags: [value] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-const handleGroupIconChange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    setFormData((prevData) => ({
-      ...prevData,
-      groupIcon: URL.createObjectURL(file),
-    }));
-  }
-};
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, image: URL.createObjectURL(file) }));
+    }
+  };
+
+  const handleGroupIconChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({
+        ...prev,
+        groupIcon: URL.createObjectURL(file),
+      }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newEvent = {
+    const updatedEvent = {
       ...formData,
-      id: Date.now(),
-      date: new Date().toISOString().split("T")[0],
-      tags: formData.tags.split(",").map((tag) => tag.trim()),
+      tags: formData.tags.map((tag) => tag.trim()),
     };
-    addEvent(newEvent);
+    updateEvent(updatedEvent);
     navigate("/dashboard");
   };
+
+  if (!eventToEdit) return <p>Event not found.</p>;
 
   return (
     <div className="create-event-container">
       <div className="create-event">
-        <h2>Create a New Event</h2>
+        <h2>Edit Event</h2>
         <form onSubmit={handleSubmit}>
+          {/* Same fields as CreateEvent */}
           <label>
             Title:
             <input
-              type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -71,7 +85,6 @@ const handleGroupIconChange = (e) => {
           <label>
             Location:
             <input
-              type="text"
               name="location"
               value={formData.location}
               onChange={handleChange}
@@ -113,7 +126,6 @@ const handleGroupIconChange = (e) => {
               name="startTime"
               value={formData.startTime}
               onChange={handleChange}
-              required
             />
           </label>
           <label>
@@ -123,19 +135,20 @@ const handleGroupIconChange = (e) => {
               name="endTime"
               value={formData.endTime}
               onChange={handleChange}
-              required
             />
           </label>
-
           <label>
             Tags:
-            <select name="tags" value={formData.tags} onChange={handleChange}>
+            <select
+              name="tags"
+              value={formData.tags[0] || ""}
+              onChange={handleChange}
+            >
               <option value="">Select Tags</option>
               <option value="free-food">free-food</option>
               <option value="free-stuff">free-stuff</option>
             </select>
           </label>
-
           <label>
             Image:
             <input
@@ -155,40 +168,12 @@ const handleGroupIconChange = (e) => {
             />
           </label>
           <button type="submit" className="submit-btn">
-            Create Event
+            Save Changes
           </button>
         </form>
-      </div>
-
-      <div className="preview">
-        <h2>Event Preview</h2>
-        <h3>{formData.title}</h3>
-        <p>
-          <strong>Organization:</strong> {formData.organization}
-        </p>
-        <p>
-          <strong>Date:</strong> {formData.startTime} - {formData.endTime}
-        </p>
-        <p>
-          <strong>Location:</strong> {formData.location}
-        </p>
-        <p>
-          <strong>Tags:</strong> {formData.tags}
-        </p>
-        <p>{formData.description}</p>
-        {formData.image && <img src={formData.image} alt="Event" />}
-        {formData.groupIcon && (
-          <p>
-            <img
-              src={formData.groupIcon}
-              alt="Group Icon"
-              className="preview-icon"
-            />
-          </p>
-        )}
       </div>
     </div>
   );
 };
 
-export default CreateEvent;
+export default EditEvent;
