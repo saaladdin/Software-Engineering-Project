@@ -4,6 +4,7 @@
   font-family: 'Comic Sans MS', cursive, sans-serif;
   background: linear-gradient(to bottom right, #ffe2ff, #fff8d6);
   color: #333;
+  
 }
 
 /* Sidebar for clubs */
@@ -11,9 +12,11 @@
   width: 220px;
   background-color: #fff4fc;
   border-right: 2px solid #ffcdf7;
+  border-bottom: 3px solid #ffcdf7;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -51,6 +54,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 5rem;
 }
 
 .messages {
@@ -64,12 +68,13 @@
 
 /* Chat Bubbles */
 .message {
-  max-width: 60%;
+  max-width: 40%;
   padding: 0.75rem 1rem;
   border-radius: 18px;
   position: relative;
   font-size: 0.95rem;
   word-wrap: break-word;
+  min-width: 4rem;
 }
 
 .myMessage {
@@ -77,6 +82,7 @@
   background-color: #ffe9e3;
   color: #222;
   border-top-right-radius: 0;
+  text-align: right;
 }
 
 .otherMessage {
