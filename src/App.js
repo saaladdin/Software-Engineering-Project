@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import EventDetails from "./Components/EventDetails/EventDetails";
-import AddEvent from "./Components/AddPage";
 import CreateEvent from "./Components/CreateEvent/CreateEvent";
 import eventImage1 from "../src/Assets/Images/onepiececlub.png";
 import eventImage2 from "../src/Assets/Images/MikuConcert2.png"
@@ -208,7 +207,6 @@ const [events, setEvents] = useState([
         <Route path="/dashboard" element={<Dashboard events={events} addEvent={addEvent} />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/event-details" element={<EventDetails />} />
-        <Route path="/addEvent" element={<AddEvent />} />
         <Route path="/create-event" element={<CreateEvent addEvent={addEvent}/>} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
