@@ -25,7 +25,7 @@ const Chat = () => {
 
   const rooms = ["One Piece Club", "Astronomy Club", "Robotics Club"];
 
-  // 1️⃣ Listen for messages + fetch any missing profile pics
+
   useEffect(() => {
     const q = query(
       messageRef,
@@ -62,6 +62,7 @@ const Chat = () => {
       );
 
       setMessages(msgs);
+
     });
 
     return () => unsubscribe();
