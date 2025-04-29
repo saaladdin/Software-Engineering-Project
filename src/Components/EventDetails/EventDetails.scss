@@ -1,116 +1,109 @@
-.eventDetails {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 800px;
-  margin: 50px auto;
-  position: relative;
-  top: 20px;
-}
-.eventHeader {
-  text-align: left; 
-  width: 100%; 
-  margin-bottom: 20px;
-
-  .eventTitle {
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: #222;
-    margin: 0;
-  }
-}
-.eventMainSection {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.event-details-page {
   width: 100%;
-}
-
-.eventImageContainer {
-  flex: 0 0 40%; 
-  max-width: 300px;
-  border-radius: 15px;
-  overflow: hidden;
-
-  .eventImage {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 15px;
-  }
-}
-
-.eventDetailsContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  .eventTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ff69b4;
-    margin-bottom: 15px;
-  }
-
-  .eventInfo {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-
-  .eventTags {
-    margin-top: 10px;
-
-    .eventTag {
-      background-color: #FFAF4F;
-      color: white;
-      font-size: 0.9rem;
-      padding: 5px 10px;
-      border-radius: 12px;
-      margin-right: 5px;
-    }
-    .tagsLabel {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #555;
-  margin-bottom: 5px; 
-}
-
-  }
-
-  .registerButton {
-    background-color: #ff79df;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 4px 8px;
-    width: 150px;
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-
-    &:hover {
-      background-color: #ff79df;
-      transform: scale(1.05);
-    }
-  }
-}
-
-.descriptionBox {
-  text-align: center;
-  margin-top: 30px; 
   padding: 20px;
-  border-radius: 15px;
-  background-color: #fff; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 1.2rem;
-  line-height: 1.6;
+  position: relative;
+  top: 10vh;
+
+  .event-main-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .event-image-container-details {
+    flex: 0 0 40%;
+    max-width: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+
+    .event-image-details {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+  }
+
+  .event-details-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .event-title-details {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff69b4;
+      margin-bottom: 15px;
+    }
+
+    .event-info-details {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .event-tags {
+      margin-top: 10px;
+
+      .tags-label {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+      }
+
+      .event-tag {
+        background-color: #FFAF4F;
+        color: white;
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 12px;
+        margin-right: 5px;
+      }
+    }
+
+    .register-button {
+      background-color: #ff79df;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 4px 8px;
+      width: 150px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ff1493;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .description-box {
+    margin-top: 30px;
+    background-color: #ff79df;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    ul {
+      list-style-type: disc;
+      margin-left: 30px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+  }
 }
