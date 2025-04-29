@@ -53,6 +53,7 @@ const Chat = () => {
       text: message,
       createdAt: serverTimestamp(),
       createdBy: auth.currentUser.email,
+      photoURL: auth.currentUser.photoURL, // ✅ store profile picture
       room: selectedRoom,
     });
 
@@ -82,19 +83,27 @@ const Chat = () => {
         </div>
 
         <div ref={messagesContainerRef} className="messages">
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`message ${
-                msg.createdBy === auth.currentUser.email
-                  ? "myMessage"
-                  : "otherMessage"
-              }`}
-            >
-              <h1>{msg.createdBy === auth.currentUser.email ? "Me" : msg.createdBy}</h1>
-              <p>{msg.text}</p>
-            </div>
-          ))}
+          {messages.map((msg) => {
+            const isMe = msg.createdBy === auth.currentUser.email;
+            return (
+              <div
+                key={msg.id}
+                className={`message ${isMe ? "myMessage" : "otherMessage"}`}
+              >
+                {!isMe && (
+                  <img
+                    src={msg.photoURL || "/default-avatar.png"}
+                    alt="avatar"
+                    className="avatar"
+                  />
+                )}
+                <div>
+                  <h1>{isMe ? "Me" : msg.createdBy}</h1>
+                  <p>{msg.text}</p>
+                </div>
+              </div>
+            );
+          })}
           <div ref={messagesEndRef} />
         </div>
 
