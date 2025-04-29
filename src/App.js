@@ -227,7 +227,7 @@ const [events, setEvents] = useState([
           navigate("/Dashboard");}
         }
         else{
-          if (location.pathname !== "/signup" && location.pathname !== "/"){
+          if (location.pathname !== "/signup" && location.pathname !== "/" && location.pathname !== "/forgotpassword"){
             navigate("/login")}
       }
     });
