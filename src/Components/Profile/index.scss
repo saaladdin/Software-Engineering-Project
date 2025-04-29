@@ -1,30 +1,57 @@
 .profile-page {
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center; /* Centers the entire profile section horizontally */
+  align-items: center; /* Centers the profile section vertically */
+  flex-direction: column; /* Stacks the profile elements vertically */
+  height: 100vh; /* Make sure the page takes the full height */
 }
 
 .profile-info {
-  margin-top: 2rem;
+  text-align: center; /* Centers text */
 }
 
 .profile-picture {
-  margin-bottom: 1rem;
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+  border-radius: 50%; /* Make it circular */
+  overflow: hidden; /* Hide any overflow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto; /* Center the profile picture horizontally */
+}
+
+.profile-image {
+  width: 100%; /* Make the image fill the container */
+  height: 100%;
+  object-fit: cover; /* Ensure the image maintains aspect ratio */
 }
 
 .profile-placeholder {
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  font-size: 36px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 2rem; /* Adjust font size if necessary */
+  color: white;
   border-radius: 50%;
-  margin: 0 auto;
 }
 
 .change-pfp-btn {
   margin-top: 1rem;
+  background-color: #ff79df; 
+  color: #942178;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.change-pfp-btn:hover {
+  background-color: #FFAF4F; 
+  color: #B56300; 
 }
 
 .user-details {
@@ -33,4 +60,16 @@
 
 .change-password-btn {
   margin-top: 1rem;
+  background-color: #ff79df; 
+  color: #942178;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.change-password-btn:hover {
+  background-color: #FFAF4F; 
+  color: #B56300; 
 }
