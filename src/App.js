@@ -7,10 +7,14 @@ import Login from "./Components/Login";
 import SignUp from "./Components/Signup/SignUp";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Confirmation from "./Components/Confirmation/Confirmation";
-import { auth } from "./FirebaseConfig";
+import ForgotPassword from "./Components/ForgotPassword"
+
+import db, { auth } from "./FirebaseConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+
+
 import EventDetails from "./Components/EventDetails/EventDetails";
 import AddEvent from "./Components/AddPage";
 import CreateEvent from "./Components/CreateEvent/CreateEvent";
@@ -35,6 +39,7 @@ import space_logo from "../src/Assets/Images/space_logo.png";
 import robotics_logo from "../src/Assets/Images/robotics_logo.png";
 import soccer_logo from "../src/Assets/Images/soccer_logo.png";
 import pi_logo from "../src/Assets/Images/pi_logo.png";
+
 
 
 import Chat from "./Components/Chat";
@@ -161,7 +166,7 @@ function App() {
     },
   ]);
   
-  const addEvent = (newEvent) => {
+  const addEvent = async (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
   };
   
@@ -172,13 +177,28 @@ function App() {
           navigate("/Dashboard");}
         }
         else{
-          if (location.pathname !== "/signup" && location.pathname !== "/"){
+          if (location.pathname !== "/signup" && location.pathname !== "/" && location.pathname !== "/forgotpassword" ){
             navigate("/login")}
       }
     });
 
     return () => unsubscribe(); // Cleanup on unmount
   }, [navigate, location.pathname]);
+
+  const sessionStartTime = Date.now();
+  localStorage.setItem("sessionStart", sessionStartTime);
+
+  // Check timeout (e.g., on each page load or via interval)
+  const MAX_SESSION_TIME = 2 * 60 * 60 * 1000; // 2 hours in ms
+  const now = Date.now();
+  const sessionStart = parseInt(localStorage.getItem("sessionStart"));
+
+  if (now - sessionStart > MAX_SESSION_TIME) {
+    // Timeout exceeded
+    auth.signOut().then(() => {
+      alert("Session expired. Please log in again.");
+    });
+  }
 
   return (
     <div className="App">
@@ -187,13 +207,20 @@ function App() {
         <Route index element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard events={events} addEvent={addEvent} />} />
+        <Route
+          path="/dashboard"
+          element={<Dashboard events={events} addEvent={addEvent} />}
+        />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/event-details" element={<EventDetails />} />
         <Route path="/addEvent" element={<AddEvent />} />
-        <Route path="/create-event" element={<CreateEvent addEvent={addEvent}/>} />
+        <Route
+          path="/create-event"
+          element={<CreateEvent addEvent={addEvent} />}
+        />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>

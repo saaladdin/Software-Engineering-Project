@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import Image from "../../Assets/Images/login-image.png";
 import { auth } from "../../FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import Eye from "../../Assets/Images/eye-solid.png";
 import SlashEye from "../../Assets/Images/eye-slash-solid.png";
 import logo from "../../Assets/Images/logo.png";
@@ -96,7 +96,7 @@ const Login = () => {
             <input type="checkbox" id="remember" name="remember" />
             Remember me
           </label>
-          <div className="forgot-password">
+          <div className="forgot-password" onClick={() => { window.location.href = "/forgotpassword"} }>
             <p>
               <a href="/forgotpassword">Forgot Password?</a>
             </p>
