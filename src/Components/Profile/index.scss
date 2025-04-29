@@ -79,7 +79,23 @@
   flex-wrap: wrap;
   width: 85%;
   margin-top: 2rem;
+  
+  .remove-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    color: red;
+    font-size: 30px;
+    background-color: transparent;
+    align-self: center;
+  }
 }
 .event-card {
   flex: 1;
 }
+
+
