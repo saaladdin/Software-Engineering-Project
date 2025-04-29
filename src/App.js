@@ -15,9 +15,15 @@ import db, { auth } from "./FirebaseConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+import {collection, addDoc, getDocs} from "firebase/firestore"
+
+
 import EventDetails from "./Components/EventDetails/EventDetails";
+<<<<<<< HEAD
 import ConfirmationPage from "./Components/ConfirmationPage/ConfirmationPage";
 import AddEvent from "./Components/AddPage";
+=======
+>>>>>>> c856dd7c990b59a98a8cbc74902c115a64f0bda5
 import CreateEvent from "./Components/CreateEvent/CreateEvent";
 import eventImage1 from "../src/Assets/Images/onepiececlub.png";
 import eventImage2 from "../src/Assets/Images/MikuConcert2.png"
@@ -83,6 +89,7 @@ const [events, setEvents] = useState([
   {
     id: 2,
     title: "Miku Concert",
+    organization: "Miku Enthusiasts",
     time: "Thursday | March 6 | 2:30 pm",
     location: "Student Center 2C04 - 2nd Floor Lobby",
     organization: "Colorful Stage",
@@ -138,6 +145,7 @@ const [events, setEvents] = useState([
   {
     id: 4,
     title: "Poppin' with Boba",
+    organization: "Korean Club" ,
     time: "Friday | March 7 | 12:45 pm",
     location: "Blanton Hall",
     organization: "Food Club",
@@ -350,9 +358,42 @@ Bring your math challenges, and let’s make learning as cute and fun as it is r
 `,
   },
 ]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        const fetchedEvents = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        // Prevent duplicate IDs (if you reuse IDs between local & Firestore)
+        setEvents((prevEvents) => {
+          const firestoreIds = new Set(fetchedEvents.map((ev) => ev.id));
+          const filteredLocal = prevEvents.filter(
+            (ev) => !firestoreIds.has(ev.id)
+          );
+          return [...filteredLocal, ...fetchedEvents];
+        });
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   
-  const addEvent = (newEvent) => {
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
+  const addEvent = async (newEvent) => {
+    try {
+      const eventRef = await addDoc(collection(db, "events"), newEvent);
+      const eventWithId = { ...newEvent, id: eventRef.id };
+
+      setEvents((prevEvents) => [...prevEvents, eventWithId]);
+    } catch (error) {
+      console.error("Error adding event:", error);
+    }
   };
   
   useEffect(() => {
@@ -362,7 +403,7 @@ Bring your math challenges, and let’s make learning as cute and fun as it is r
           navigate("/Dashboard");}
         }
         else{
-          if (location.pathname !== "/signup" && location.pathname !== "/"){
+          if (location.pathname !== "/signup" && location.pathname !== "/" && location.pathname !== "/forgotpassword"){
             navigate("/login")}
       }
     });
@@ -383,12 +424,16 @@ Bring your math challenges, and let’s make learning as cute and fun as it is r
         />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/event-details" element={<EventDetails />} />
+<<<<<<< HEAD
         <Route path="/confirmation-page" element={<ConfirmationPage/>} />
         <Route path="/addEvent" element={<AddEvent />} />
         <Route
           path="/create-event"
           element={<CreateEvent addEvent={addEvent} />}
         />
+=======
+        <Route path="/create-event" element={<CreateEvent addEvent={addEvent}/>} />
+>>>>>>> c856dd7c990b59a98a8cbc74902c115a64f0bda5
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />

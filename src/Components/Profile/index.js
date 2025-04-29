@@ -2,30 +2,70 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
-import { auth } from "../../FirebaseConfig"; // assuming you're using Firebase
+import db, { auth } from "../../FirebaseConfig"; // assuming you're using Firebase
 import { signOut } from "firebase/auth";
+import EventCard from "../Events/EventCard";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [profilePic, setProfilePic] = useState(null);
   const [userEmail, setUserEmail] = useState("");
   const fileInputRef = useRef(null);
+  const [registeredEvents, setRegisteredEvents] = useState([]);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    console.log("Stored user:", storedUser); // Debugging log
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser);
-        console.log("Parsed user:", user); // Debugging log
-        if (user.email) {
-          setUserEmail(user.email);
-        }
-      } catch (error) {
-        console.error("Error parsing user from localStorage:", error);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const events = await getRegisteredEvents(user.uid);
+        setRegisteredEvents(events);
+        setUserEmail(user.email); // optional, since you had this elsewhere
       }
-    }
+    });
+
+    return () => unsubscribe();
   }, []);
+
+
+  const handleEventClick = (event) => {
+    navigate("/event-details", { state: { event } });
+  };
+
+  const getRegisteredEvents = async (userId) => {
+    try {
+      const registrationsRef = collection(db, "users", userId, "registrations");
+      const querySnapshot = await getDocs(registrationsRef);
+
+      const registeredEvents = querySnapshot.docs.map((doc) => ({
+        id: doc.id, 
+        ...doc.data(),
+      }));
+
+      return registeredEvents;
+    } catch (error) {
+      console.error("Error fetching registered events:", error);
+      return [];
+    }
+  };
+
+
+  const removeRegisteredEvent = async (eventId) => {
+    const userId = auth.currentUser?.uid;
+    if (!userId) return;
+
+    try {
+      const eventRef = doc(db, "users", userId, "registrations", eventId);
+      await deleteDoc(eventRef);
+
+      setRegisteredEvents((prev) =>
+        prev.filter((event) => event.id !== eventId)
+      );
+
+      console.log("Event removed from registrations.");
+    } catch (error) {
+      console.error("Error removing event:", error);
+    }
+  };
 
   const handleProfilePicChange = (event) => {
     const file = event.target.files[0];
@@ -84,7 +124,11 @@ const ProfilePage = () => {
               src={profilePic}
               alt="Profile"
               className="profile-image"
-              style={{ maxWidth: "150px", maxHeight: "150px", borderRadius: "50%" }}
+              style={{
+                maxWidth: "150px",
+                maxHeight: "150px",
+                borderRadius: "50%",
+              }}
             />
           ) : (
             <div
@@ -99,7 +143,7 @@ const ProfilePage = () => {
                 justifyContent: "center",
                 fontSize: "2rem",
                 color: "white",
-                margin: "0 auto"
+                margin: "0 auto",
               }}
             >
               {defaultProfilePic}
@@ -118,13 +162,34 @@ const ProfilePage = () => {
           style={{ display: "none" }}
         />
 
-      <h1>Password</h1>
+        <h1>Password</h1>
 
-        <button onClick={handleChangePasswordClick} className="change-password-btn">
+        <button
+          onClick={handleChangePasswordClick}
+          className="change-password-btn"
+        >
           Change Password
         </button>
 
+        <h1>Registered Events</h1>
+        <div className="event-cards">
+          {registeredEvents.map((event) => (
+            <div className="event-card" key={event.id}>
+              <button
+                className="remove-button"
+                onClick={() => removeRegisteredEvent(event.title)}
+                aria-label="Remove event"
+              >
+                &times;
+              </button>
 
+              <EventCard
+                event={event}
+                onClick={() => handleEventClick(event)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
