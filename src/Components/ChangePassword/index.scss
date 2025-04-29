@@ -1,0 +1,68 @@
+// ChangePassword.scss
+.change-password-page {
+    padding: 20px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.change-password-page h1 {
+    font-size: 2rem;
+    color: #ff79df;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ff79df;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.form-input:focus {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-image: linear-gradient(
+        135deg,
+        rgba(255, 247, 79, 1),
+        rgba(255, 175, 79, 1),
+        rgba(255, 121, 223, 1)
+    );
+    border-image-slice: 1;
+    animation: rainbow-focus 2s linear infinite;
+}
+
+.submit-btn {
+    background-color: #ff79df; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #FFAF4F; 
+    color: #B56300; 
+}
+
+:root {
+    --shadow-color-1: rgba(255, 121, 223, 1);
+    --shadow-color-2: rgba(255, 247, 79, 1);
+    --shadow-color-3: rgba(255, 175, 79, 1);
+}

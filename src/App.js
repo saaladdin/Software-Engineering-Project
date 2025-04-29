@@ -7,7 +7,8 @@ import Login from "./Components/Login";
 import SignUp from "./Components/Signup/SignUp";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Confirmation from "./Components/Confirmation/Confirmation";
-import ForgotPassword from "./Components/ForgotPassword"
+import ForgotPassword from "./Components/ForgotPassword";
+import ChangePassword from "./Components/ChangePassword";
 
 import db, { auth } from "./FirebaseConfig";
 import { useEffect, useState } from "react";
@@ -236,6 +237,7 @@ const [events, setEvents] = useState([
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/change-password" element={<ChangePassword />} /> 
       </Routes>
       {!hideHeaderRoutes.includes(location.pathname) && <Footer />}
     </div>
