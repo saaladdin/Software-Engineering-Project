@@ -65,7 +65,7 @@ const SignUp = () => {
           email: email,
           organizations: [],
           roles: {},
-
+          photoUrl: "",
         }
         const userRef = await setDoc(doc(db, "users", user.uid), userInfo)
         console.log(`${userRef} added successfully`)

@@ -81,7 +81,9 @@ body {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-pic-default {

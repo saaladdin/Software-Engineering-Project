@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import messenger from "../../Assets/Images/groupchart.png";
 import add_event from "../../Assets/Images/AddEvent.png";
 import logo from "../../Assets/Images/logo.png";
-import { auth } from "../../FirebaseConfig";
+import db,{ auth, storage } from "../../FirebaseConfig";
 import { signOut } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {doc, setDoc, getDoc} from "firebase/firestore"
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,6 +27,23 @@ const Header = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          if (data.profilePic) {
+            setProfilePic(data.profilePic);
+          }
+        }
+        setUserEmail(user.email);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -50,15 +69,26 @@ const Header = () => {
     };
   }, []);
 
-  const handleProfilePicChange = (event) => {
+  const handleProfilePicChange = async (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result);
-        setShowChangeBox(false);
-      };
-      reader.readAsDataURL(file);
+    if (!file || !auth.currentUser) return;
+
+    const userId = auth.currentUser.uid;
+    const storageRef = ref(storage, `profilePictures/${userId}`);
+
+    try {
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      setProfilePic(downloadURL); // show preview immediately
+
+      // optionally store in Firestore or update user profile
+      await setDoc(
+        doc(db, "users", userId),
+        { profilePic: downloadURL },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
     }
   };
 

@@ -1,11 +1,16 @@
-// ProfilePage.js
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.scss";
-import db, { auth } from "../../FirebaseConfig"; // assuming you're using Firebase
+import db, { auth } from "../../FirebaseConfig";
 import { signOut } from "firebase/auth";
 import EventCard from "../Events/EventCard";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  getDoc,
+} from "firebase/firestore";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -17,15 +22,28 @@ const ProfilePage = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        setUserEmail(user.email);
         const events = await getRegisteredEvents(user.uid);
         setRegisteredEvents(events);
-        setUserEmail(user.email); // optional, since you had this elsewhere
+
+        // 🔽 Fetch profilePic from Firestore
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const data = userDocSnap.data();
+            if (data.profilePic) {
+              setProfilePic(data.profilePic);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching user profile pic:", error);
+        }
       }
     });
 
     return () => unsubscribe();
   }, []);
-
 
   const handleEventClick = (event) => {
     navigate("/event-details", { state: { event } });
@@ -37,7 +55,7 @@ const ProfilePage = () => {
       const querySnapshot = await getDocs(registrationsRef);
 
       const registeredEvents = querySnapshot.docs.map((doc) => ({
-        id: doc.id, 
+        id: doc.id,
         ...doc.data(),
       }));
 
@@ -47,7 +65,6 @@ const ProfilePage = () => {
       return [];
     }
   };
-
 
   const removeRegisteredEvent = async (eventId) => {
     const userId = auth.currentUser?.uid;
@@ -73,16 +90,12 @@ const ProfilePage = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfilePic(reader.result);
+        // You may want to upload to Firebase Storage and save URL to Firestore here
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
 
   const getFirstLetter = (email) => {
     return email ? email.split("@")[0].charAt(0).toUpperCase() : "";
@@ -150,10 +163,6 @@ const ProfilePage = () => {
             </div>
           )}
         </div>
-
-        <button onClick={handleButtonClick} className="change-pfp-btn">
-          Change Profile Picture
-        </button>
         <input
           type="file"
           accept="image/*"
@@ -163,7 +172,6 @@ const ProfilePage = () => {
         />
 
         <h1>Password</h1>
-
         <button
           onClick={handleChangePasswordClick}
           className="change-password-btn"
@@ -177,7 +185,7 @@ const ProfilePage = () => {
             <div className="event-card" key={event.id}>
               <button
                 className="remove-button"
-                onClick={() => removeRegisteredEvent(event.title)}
+                onClick={() => removeRegisteredEvent(event.id)}
                 aria-label="Remove event"
               >
                 &times;
@@ -190,6 +198,10 @@ const ProfilePage = () => {
             </div>
           ))}
         </div>
+
+        <button onClick={handleLogout} className="logout-btn">
+          Log Out
+        </button>
       </div>
     </div>
   );
