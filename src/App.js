@@ -14,7 +14,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import EventDetails from "./Components/EventDetails/EventDetails";
 import AddEvent from "./Components/AddPage";
 import CreateEvent from "./Components/CreateEvent/CreateEvent";
-import eventImage1 from "../src/Assets/Images/Group 11.png";
+import eventImage1 from "../src/Assets/Images/onepiececlub.png";
 import eventImage2 from "../src/Assets/Images/MikuConcert2.png"
 import eventImage3 from "../src/Assets/Images/sarahhh.webp";
 import eventImage4 from "../src/Assets/Images/BobaTime.png";
@@ -24,6 +24,18 @@ import eventImage7 from "../src/Assets/Images/Amogus.webp";
 import eventImage8 from "../src/Assets/Images/EvanEvent.webp";
 import eventImage9 from "../src/Assets/Images/Egoist.webp";
 import eventImage10 from "../src/Assets/Images/BadMath.webp";
+
+import onepiece_logo from "../src/Assets/Images/onepiece_logo.png"
+import miku_logo from "../src/Assets/Images/miku_logo.png";
+import pokemon_logo from "../src/Assets/Images/pokemon_logo.png";
+import boba_logo from "../src/Assets/Images/food_logo.png";
+import host_logo from "../src/Assets/Images/host_logo.png";
+import tea_logo from "../src/Assets/Images/tea_logo.png";
+import space_logo from "../src/Assets/Images/space_logo.png";
+import robotics_logo from "../src/Assets/Images/robotics_logo.png";
+import soccer_logo from "../src/Assets/Images/soccer_logo.png";
+import pi_logo from "../src/Assets/Images/pi_logo.png";
+
 
 import Chat from "./Components/Chat";
 import Profile from "./Components/Profile";
@@ -45,7 +57,8 @@ function App() {
       startTime: "12:45",
       endTime: "14:00",
       image: eventImage1,
-      description: "hi"
+      groupIcon: onepiece_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 2,
@@ -55,6 +68,8 @@ function App() {
       tags: [],
       date: "2025-03-06",
       image: eventImage2,
+      groupIcon: miku_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 3,
@@ -64,6 +79,8 @@ function App() {
       tags: ["free-stuff"],
       date: "2025-03-06",
       image: eventImage3,
+      groupIcon: pokemon_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 4,
@@ -73,6 +90,8 @@ function App() {
       tags: ["free-food"],
       date: "2025-03-07",
       image: eventImage4,
+      groupIcon: boba_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 5,
@@ -82,6 +101,8 @@ function App() {
       tags: ["free-food"],
       date: "2025-03-10",
       image: eventImage5,
+      groupIcon: host_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 6,
@@ -91,6 +112,8 @@ function App() {
       tags: ["free-food"],
       date: "2025-03-10",
       image: eventImage6,
+      groupIcon: tea_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 7,
@@ -100,6 +123,8 @@ function App() {
       tags: [],
       date: "2025-03-10",
       image: eventImage7,
+      groupIcon: space_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 8,
@@ -109,6 +134,8 @@ function App() {
       tags: [],
       date: "2025-03-12",
       image: eventImage8,
+      groupIcon: robotics_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 9,
@@ -118,6 +145,8 @@ function App() {
       tags: [],
       date: "2025-03-13",
       image: eventImage9,
+      groupIcon: soccer_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
     {
       id: 10,
@@ -127,6 +156,8 @@ function App() {
       tags: [],
       date: "2025-03-13",
       image: eventImage10,
+      groupIcon: pi_logo,
+      description: "Come join the One Piece club for a high seas adventure",
     },
   ]);
   

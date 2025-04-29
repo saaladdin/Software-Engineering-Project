@@ -20,6 +20,15 @@ const CreateEvent = ({ addEvent }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file){
+        setFormData((prevData) => ({
+            ...prevData,
+            image: URL.createObjectURL(file),
+        }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,12 +126,12 @@ const CreateEvent = ({ addEvent }) => {
           </label>
 
           <label>
-            Image URL:
+            Image:
             <input
-              type="text"
+              type="file"
               name="image"
-              value={formData.image}
-              onChange={handleChange}
+              onChange={handleImageChange}
+              accept="image/*"
             />
           </label>
           <button type="submit" className="submit-btn">
