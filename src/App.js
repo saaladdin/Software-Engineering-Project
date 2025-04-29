@@ -363,12 +363,6 @@ Bring your math challenges, and let’s make learning as cute and fun as it is r
         if (location.pathname !== "/signup" && location.pathname !== "/" && location.pathname !== "/forgotpassword") {
           navigate("/login");
         }
-<<<<<<< HEAD
-        else{
-          if (location.pathname !== "/signup" && location.pathname !== "/" && location.pathname !== "/forgotpassword"){
-            navigate("/login")}
-=======
->>>>>>> 3371c831f0d39206f69a39661cea6f78513dc55e
       }
     });
 
