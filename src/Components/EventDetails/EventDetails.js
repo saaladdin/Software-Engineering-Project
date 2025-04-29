@@ -7,8 +7,16 @@ import { doc } from "firebase/firestore";
 
 const EventDetails = () => {
   const { state } = useLocation();
-  const { title, time, location, image, description, organization, tags } =
-    state.event;
+  const {
+    title,
+    time,
+    location,
+    image,
+    description,
+    organization,
+    tags,
+    groupIcon,
+  } = state.event;
 
   const tagDisplayMap = {
     "free-food": "Free food",
@@ -48,6 +56,9 @@ const EventDetails = () => {
       <div className="event-main-section">
         <div className="event-image-container-details">
           <img src={image} alt={title} className="event-image-details" />
+          {groupIcon && (
+            <img src={groupIcon} alt="Group Icon" className="group-icon" />
+          )}
         </div>
 
         <div className="event-details-content">
