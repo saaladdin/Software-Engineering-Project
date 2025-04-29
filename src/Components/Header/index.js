@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import messenger from "../../Assets/Images/noun-group-chat-5076902 1.png";
 import add_event from "../../Assets/Images/AddEvent.png";
 import logo from "../../Assets/Images/logo.png";
+import { auth } from "../../FirebaseConfig";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,17 +20,11 @@ const Header = () => {
     let lastScrollTop = 0;
     const handleScroll = () => {
       const currentScrollTop = window.scrollY;
-      if (currentScrollTop > lastScrollTop) {
-        setIsScrolledDown(true);
-      } else {
-        setIsScrolledDown(false);
-      }
+      setIsScrolledDown(currentScrollTop > lastScrollTop);
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     };
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -38,6 +34,7 @@ const Header = () => {
       setUserEmail(user.email);
     }
   }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -64,12 +61,9 @@ const Header = () => {
       reader.readAsDataURL(file);
     }
   };
+
   const handleProfilePicClick = () => {
-    if (!profilePic) {
-      setShowChangeBox(true);
-    } else {
-      setShowChangeBox(!showChangeBox);
-    }
+    setShowChangeBox(!showChangeBox);
   };
 
   const handleButtonClick = () => {
@@ -78,9 +72,26 @@ const Header = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); 
+      localStorage.removeItem("user"); 
+      navigate("/"); 
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+  
+
+  const handleLogoClick = () => navigate("/dashboard");
+  const handleTitleClick = () => navigate("/dashboard");
+  const handleAddEventClick = () => navigate("/addevent");
+  const handleChatClick = () => navigate("/Chat");
+
   const getFirstLetter = (email) => {
     return email ? email.split("@")[0].charAt(0).toUpperCase() : "";
   };
+
   const generateRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
@@ -89,24 +100,9 @@ const Header = () => {
     }
     return color;
   };
+
   const defaultProfilePic = getFirstLetter(userEmail);
   const randomColor = generateRandomColor();
-
-  const handleLogoClick = () => {
-    navigate("/dashboard");
-  };
-
-  const handleTitleClick = () => {
-    navigate("/dashboard");
-  };
-
-  const handleAddEventClick = () => {
-    navigate("/addevent");
-  };
-
-  const handleChatClick = () => {
-    navigate("/Chat");
-  };
 
   return (
     <header className={`rainbow-header ${isScrolledDown ? "hide-header" : ""}`}>
@@ -125,8 +121,8 @@ const Header = () => {
           UVent
         </h3>
       </div>
+
       <div className="headerRight">
-        <a href="/profile">Profile</a>
         <div
           className="profile-pic-container"
           onClick={handleProfilePicClick}
@@ -143,13 +139,21 @@ const Header = () => {
             </div>
           )}
         </div>
+
         {showChangeBox && (
           <div className="change-profile-box" ref={changeBoxRef}>
+            <button onClick={() => navigate("/profile")} className="profile-btn">
+              View Profile
+            </button>
             <button onClick={handleButtonClick} className="change-profile-btn">
               Change Profile Picture
             </button>
+            <button onClick={handleLogout} className="logout-btn">
+              Log Out
+            </button>
           </div>
         )}
+
         <input
           type="file"
           accept="image/*"
@@ -158,6 +162,7 @@ const Header = () => {
           ref={fileInputRef}
           style={{ display: "none" }}
         />
+
         <img
           src={messenger}
           alt="messenger"

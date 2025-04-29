@@ -1,9 +1,9 @@
 .rainbow-header {
   background: linear-gradient(
     135deg,
-    /*yellow*/ rgba(255, 247, 79, 0.75),
-    /*orange*/ rgba(255, 175, 79, 0.75),
-    /*pink*/ rgba(255, 121, 223, 0.75)
+    rgba(255, 247, 79, 0.75),
+    rgba(255, 175, 79, 0.75),
+    rgba(255, 121, 223, 0.75)
   );
   padding: 5px 10px;
   text-align: center;
@@ -37,6 +37,7 @@
   justify-content: center;
   gap: 1rem;
   margin-right: 2rem;
+
   a {
     text-decoration: none;
     color: black;
@@ -48,14 +49,17 @@
   opacity: 0;
   transform: translateY(-100%);
 }
+
 body {
   padding-top: 50px;
 }
+
 .logo {
   width: 30px;
   height: auto;
   margin-right: 10px;
 }
+
 .rainbow-header h2 {
   color: white;
   font-size: 48px;
@@ -63,6 +67,7 @@ body {
   margin: 0;
   padding-left: 50x;
 }
+
 .profile-pic-container {
   position: relative;
   display: flex;
@@ -70,6 +75,7 @@ body {
   align-items: center;
   margin-left: auto;
 }
+
 .profile-pic {
   width: 40px;
   height: 40px;
@@ -77,6 +83,7 @@ body {
   object-fit: cover;
   transform: translateY(-50%);
 }
+
 .profile-pic-default {
   width: 40px;
   height: 40px;
@@ -87,38 +94,62 @@ body {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+  background-color: #ccc;
 }
+
 .plus-sign {
   width: 35px;
   height: 35px;
   border-radius: 20%;
   object-fit: cover;
 }
+
 .text-bubble {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .change-profile-box {
-  right: 20px;
-  top: 60%;
-  transform: translateY(-50%);
+  position: absolute;
+  top: 50px;
+  right: 0;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  z-index: 10;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 180px;
+  overflow: hidden;
 }
-.change-profile-btn {
-  background-color: #007bff;
-  color: white;
+
+.change-profile-btn,
+.logout-btn,
+.profile-btn {
+  background-color: #FF79DF;
+  color: #942178;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 10px;
   font-size: 14px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  text-align: center;
 }
+
+.change-profile-btn:hover,
+.logout-btn:hover,
+.profile-btn:hover {
+  background-color: #FFAF4F;
+  color: #B56300;
+}
+
 @keyframes rainbow {
   0% {
     background-position: 0% 0%;
