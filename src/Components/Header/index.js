@@ -85,7 +85,7 @@ const Header = () => {
 
   const handleLogoClick = () => navigate("/dashboard");
   const handleTitleClick = () => navigate("/dashboard");
-  const handleAddEventClick = () => navigate("/addevent");
+  const handleAddEventClick = () => navigate("/create-event");
   const handleChatClick = () => navigate("/Chat");
 
   const getFirstLetter = (email) => {

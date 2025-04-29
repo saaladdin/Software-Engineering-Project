@@ -72,20 +72,6 @@ const Dashboard = ({ events }) => {
         <h1 style={{ color: "#FFA500", textAlign: "center" }}>
           Welcome to UVent!
         </h1>
-        <button onClick={() => navigate("/create-event")} className="create-event-btn">
-          Create Event
-        </button>
-        <p>
-          <span
-            onClick={() => {
-              auth.signOut();
-              navigate("/login")
-            }}
-            style={{ color: "#ff79df", cursor: "pointer", fontWeight: "bold" }}
-          >
-            Logout
-          </span>
-        </p>
 
         <div className="filter-buttons">
           <button onClick={() => setSelectedFilter("")}>All Events</button>
