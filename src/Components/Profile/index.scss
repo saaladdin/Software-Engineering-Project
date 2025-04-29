@@ -73,3 +73,13 @@
   background-color: #FFAF4F; 
   color: #B56300; 
 }
+
+.event-cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 85%;
+  margin-top: 2rem;
+}
+.event-card {
+  flex: 1;
+}

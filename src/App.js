@@ -14,6 +14,9 @@ import db, { auth } from "./FirebaseConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+import {collection, addDoc, getDocs} from "firebase/firestore"
+
+
 import EventDetails from "./Components/EventDetails/EventDetails";
 import CreateEvent from "./Components/CreateEvent/CreateEvent";
 import eventImage1 from "../src/Assets/Images/onepiececlub.png";
@@ -80,6 +83,7 @@ const [events, setEvents] = useState([
   {
     id: 2,
     title: "Miku Concert",
+    organization: "Miku Enthusiasts",
     time: "Thursday | March 6 | 2:30 pm",
     location: "Student Center 2C04 - 2nd Floor Lobby",
     tags: [],
@@ -102,6 +106,7 @@ const [events, setEvents] = useState([
   {
     id: 4,
     title: "Poppin' with Boba",
+    organization: "Korean Club" ,
     time: "Friday | March 7 | 12:45 pm",
     location: "Blanton Hall",
     tags: ["free-food"],
@@ -177,9 +182,42 @@ const [events, setEvents] = useState([
     description: "Come join the One Piece club for a high seas adventure",
   },
 ]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "events"));
+        const fetchedEvents = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        // Prevent duplicate IDs (if you reuse IDs between local & Firestore)
+        setEvents((prevEvents) => {
+          const firestoreIds = new Set(fetchedEvents.map((ev) => ev.id));
+          const filteredLocal = prevEvents.filter(
+            (ev) => !firestoreIds.has(ev.id)
+          );
+          return [...filteredLocal, ...fetchedEvents];
+        });
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   
-  const addEvent = (newEvent) => {
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
+  const addEvent = async (newEvent) => {
+    try {
+      const eventRef = await addDoc(collection(db, "events"), newEvent);
+      const eventWithId = { ...newEvent, id: eventRef.id };
+
+      setEvents((prevEvents) => [...prevEvents, eventWithId]);
+    } catch (error) {
+      console.error("Error adding event:", error);
+    }
   };
   
   useEffect(() => {
